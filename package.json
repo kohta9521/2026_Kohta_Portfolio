@@ -25,7 +25,6 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "next": "16.0.5",
     "@gsap/react": "^2.1.2",
     "@microsoft/clarity": "^1.0.0",
     "@next/third-parties": "^16.0.3",
@@ -44,6 +43,7 @@
     "lucide-react": "^0.548.0",
     "microcms-js-sdk": "^3.2.0",
     "motion": "^12.23.24",
+    "next": "16.1.6",
     "ogl": "^1.0.11",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -75,5 +75,14 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.4.5",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml,css,scss}": [
+      "prettier --write"
+    ]
   }
 }
