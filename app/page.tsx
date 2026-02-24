@@ -1,23 +1,30 @@
+"use client";
+
+// components
+import HomeHeader from "@/components/layouts/Header/HomeHeader";
+import HomeIconGrid from "@/components/ui/HomeIconGrid";
+import { useTheme } from "@/contexts/ThemeContext";
+
+// data
+import { homeIconsData } from "@/data/HomeIcons";
+
 export default function Home() {
+  const { effectiveTheme } = useTheme();
+  const bgImage =
+    effectiveTheme === "dark"
+      ? "/images/service-bg-dark.webp"
+      : "/images/service-bg-light.webp";
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <div className="w-11/12 h-auto mx-auto hidden md:block">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          src="/video/hero_bg_video_pc_black.webm"
-        />
-      </div>
-      <div className="w-[95%] h-auto mx-auto block md:hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          src="/video/hero_bg_video_mobile_black.webm"
-        />
+    <div className="w-full min-h-screen relative">
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none select-none transition-all duration-500"
+        style={{ backgroundImage: `url(${bgImage})` }}
+      />
+      <HomeHeader />
+      {/* main contents */}
+      <div className="relative w-full h-full pt-0">
+        <HomeIconGrid initialItems={homeIconsData} />
       </div>
     </div>
   );
