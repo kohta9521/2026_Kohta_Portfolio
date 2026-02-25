@@ -12,6 +12,9 @@ import { WindowProvider } from "@/contexts/WindowContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import WindowManager from "@/components/ui/WindowManager";
 
+// analytics
+import { Analytics } from "@vercel/analytics/next";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -39,8 +42,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <WindowProvider>
-            <div className="w-screen h-screen overflow-hidden relative bg-[var(--bg-primary)]">
+            <div className="w-screen h-screen overflow-hidden relative bg-(--bg-primary)">
               {children}
+              <Analytics />
               <WindowManager />
             </div>
           </WindowProvider>
