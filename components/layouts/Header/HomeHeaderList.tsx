@@ -108,7 +108,7 @@ const HomeHeaderList = ({
                     <DropdownMenuSub>
                       <DropdownMenuSubTrigger className="flex items-center gap-2 text-white hover:text-white/80">
                         {renderIcon(item.icon, 12)}
-                        <span className="text-xs font-semibold">
+                        <span className="text-xs font-semibold font-sans">
                           {item.label}
                         </span>
                       </DropdownMenuSubTrigger>

@@ -33,17 +33,17 @@ export const loadWindowComponent = async (
       break;
     }
     case "/skills": {
-      const imported = await import("@/app/skills/page");
+      const imported = await import("@/app/[locale]/skills/page");
       PageComponent = imported.default;
       break;
     }
     case "/contact": {
-      const imported = await import("@/app/contact/page");
+      const imported = await import("@/app/[locale]/contact/page");
       PageComponent = imported.default;
       break;
     }
     case "/blog": {
-      const imported = await import("@/app/blog/page");
+      const imported = await import("@/app/[locale]/blog/page");
       PageComponent = imported.default;
       break;
     }

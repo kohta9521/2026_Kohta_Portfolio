@@ -1,0 +1,62 @@
+# Kohta Portfolio
+
+## About
+Kohtaのポートフォリオサイトです。フルスタックエンジニアとして、モダンなWeb技術を使った開発に取り組んでいます。
+
+## Site Structure
+
+### Home (/)
+- ポートフォリオのトップページ
+- デスクトップUI風のインターフェース
+- ドラッグ&ドロップ可能なアイコン
+- macOS風のウィンドウシステム
+
+### About (/about)
+- プロフィール情報
+- スキルセット
+- 経歴
+
+### Projects (/projects)
+- 過去のプロジェクト一覧
+- 技術スタック
+- プロジェクト詳細
+
+### Skills (/skills)
+- Frontend: React, Next.js, TypeScript, Tailwind CSS, Framer Motion
+- Backend: Node.js, Python, PostgreSQL, MongoDB, Docker
+
+### Contact (/contact)
+- お問い合わせ情報
+- Email: example@example.com
+- GitHub: github.com/yourusername
+
+### Blog (/blog)
+- 技術ブログ（準備中）
+
+## Technologies Used
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS
+- IBM Plex フォント
+- GSAP アニメーション
+- dnd-kit (ドラッグ&ドロップ)
+- Radix UI / shadcn/ui
+- Vercel Analytics
+
+## Features
+- ダークモード/ライトモード/システム設定対応
+- レスポンシブデザイン
+- アクセシビリティ対応
+- PostHog風のマルチウィンドウシステム
+- ドラッグ&ドロップ可能なデスクトップアイコン
+
+## SEO Keywords
+フルスタックエンジニア, Web開発, React, Next.js, TypeScript, ポートフォリオ, Kohta
+
+## Contact Information
+- Website: https://your-domain.com
+- Email: example@example.com
+- GitHub: https://github.com/yourusername
+
+## Last Updated
+2026-02-25

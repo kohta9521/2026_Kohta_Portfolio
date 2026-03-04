@@ -3,6 +3,7 @@ import React from "react";
 // components
 import HomeHeaderList from "./HomeHeaderList";
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 // data
 import { homeHeaderLeftData, homeHeaderRightData } from "@/data/HomeHeader";
@@ -27,6 +28,7 @@ const HomeHeader = () => {
             <HomeHeaderList key={menuItem.id} {...menuItem} />
           ))}
           <ThemeSwitcher />
+          <LanguageSwitcher />
         </nav>
       </div>
     </header>
