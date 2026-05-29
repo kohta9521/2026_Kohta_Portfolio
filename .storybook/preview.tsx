@@ -11,10 +11,6 @@ const preview: Preview = {
     },
     nextjs: {
       appDirectory: true,
-      navigation: {
-        pathname: "/ja",
-        query: {},
-      },
     },
   },
 };
