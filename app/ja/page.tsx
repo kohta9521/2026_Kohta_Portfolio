@@ -6,20 +6,20 @@ import JsonLd from "@/components/common/JsonLd/JsonLd";
 import { pageMetadata, personJsonLd, websiteJsonLd, SEO_COPY } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  lang: "en",
-  absoluteTitle: SEO_COPY.home.en.title,
-  description: SEO_COPY.home.en.description,
-  path: "/",
+  lang: "ja",
+  absoluteTitle: SEO_COPY.home.ja.title,
+  description: SEO_COPY.home.ja.description,
+  path: "/ja",
   enPath: "/",
   jaPath: "/ja",
 });
 
-// "/" — 英語
+// "/ja" — 日本語
 export default function Page() {
   return (
     <>
       <JsonLd data={[personJsonLd(), websiteJsonLd()]} />
-      <LanguageProvider lang="en">
+      <LanguageProvider lang="ja">
         <HomeView />
       </LanguageProvider>
     </>
