@@ -1,17 +1,14 @@
-"use client";
-
 import Link from "next/link";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { langBase, type Lang } from "@/lib/i18n";
 import { getBlog } from "@/dics/blog";
 
 // 03.png の「Table of Contents」を再現する目次本体。
 // カテゴリごとに記事を列挙し、タイトル → ドットリーダー → 目安 WORDS を一行に。
 // トップの §03 セクションと /blogs ページの両方から使う共通パーツ。
-export default function BlogToc() {
-  const { lang } = useLanguage();
+export default function BlogToc({ lang }: { lang: Lang }) {
   const blog = getBlog(lang);
-  const base = lang === "ja" ? "/ja" : "";
+  const base = langBase(lang);
 
   return (
     <div className="columns-1 gap-x-12 md:columns-2 lg:columns-3 [&>*]:break-inside-avoid">

@@ -1,18 +1,21 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { langBase, type Lang } from "@/lib/i18n";
 import { getWorks } from "@/dics/works";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 // /works/[slug]。ブログ記事ページ（BlogPostView）と同じ動線・トーンの詳細ページ。
 // 上部：パンくず + 前後ナビ + 言語切替 + 閉じる
 // 中央：中央寄せヘッダ（期間・ロール / タイトル / リード）、ヒーロー画像、ドロップキャップ本文、タグ、前後ナビ
-export default function WorkDetailView({ slug }: { slug: string }) {
-  const { lang } = useLanguage();
-  const base = lang === "ja" ? "/ja" : "";
+export default function WorkDetailView({
+  slug,
+  lang,
+}: {
+  slug: string;
+  lang: Lang;
+}) {
+  const base = langBase(lang);
   const works = getWorks(lang);
 
   // ラベルはこのページ専用に最小限だけ言語分岐（Career と同じ流儀）
@@ -83,7 +86,7 @@ export default function WorkDetailView({ slug }: { slug: string }) {
         </div>
 
         <div className="flex shrink-0 items-center gap-3">
-          <LanguageSwitcher />
+          <LanguageSwitcher lang={lang} />
           <Link
             href={`${base}/#work`}
             aria-label={tx.home}

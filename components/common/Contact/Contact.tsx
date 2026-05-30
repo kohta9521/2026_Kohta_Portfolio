@@ -3,17 +3,26 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import type { Lang } from "@/lib/i18n";
+import type { Messages } from "@/dics/types";
 import SectionHead from "@/components/common/SectionHead/SectionHead";
+import { pushEvent, GTM_EVENT } from "@/lib/gtm";
 
 type Status = "idle" | "sending" | "sent";
 
 // 全ページ共通の CTA / お問い合わせフォーム。
 // 送信はバックエンド不要の mailto 方式（フィールド内容を件名・本文に詰めてメールアプリを起動）。
 // 必要なら handleSubmit を API / フォームサービスに差し替え可能。
-export default function Contact({ no = "§ —" }: { no?: string }) {
-  const { t } = useLanguage();
-  const f = t.contact.form;
+export default function Contact({
+  no = "§ —",
+  data,
+  lang,
+}: {
+  no?: string;
+  data: Messages["contact"];
+  lang: Lang;
+}) {
+  const f = data.form;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -42,11 +51,22 @@ export default function Contact({ no = "§ —" }: { no?: string }) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
+
+    // CV（お問い合わせ送信）。GTM 側でこのイベントを GA4 のキーイベント＝コンバージョンに。
+    // mailto 方式のため「送信意図（ボタン押下）」を計測する。
+    pushEvent(GTM_EVENT.generateLead, {
+      form_id: "contact",
+      method: "mailto",
+      language: lang,
+      page_path:
+        typeof window !== "undefined" ? window.location.pathname : undefined,
+    });
+
     const subject = encodeURIComponent(f.subject);
     const body = encodeURIComponent(
       `${f.name}: ${name}\n${f.email}: ${email}\n\n${message}`
     );
-    const href = `mailto:${t.contact.email}?subject=${subject}&body=${body}`;
+    const href = `mailto:${data.email}?subject=${subject}&body=${body}`;
     window.location.href = href;
     window.setTimeout(() => setStatus("sent"), 650);
   }
@@ -56,7 +76,7 @@ export default function Contact({ no = "§ —" }: { no?: string }) {
 
   return (
     <section id="contact" className="pt-24 pb-12">
-      <SectionHead no={no} kicker={t.contact.kicker} title={t.contact.title} />
+      <SectionHead no={no} kicker={data.kicker} title={data.title} />
 
       <div
         ref={wrapRef}
@@ -65,21 +85,21 @@ export default function Contact({ no = "§ —" }: { no?: string }) {
         {/* 左：リード文 + 直接メール + SNS */}
         <div className={reveal} style={{ transitionDelay: "60ms" }}>
           <p className="max-w-[46ch] font-serif text-[1.18rem] leading-[1.55] text-ink-2">
-            {t.contact.body}
+            {data.body}
           </p>
 
           <div className="mt-8">
             <span className="label">{f.orEmail}</span>
             <Link
-              href={`mailto:${t.contact.email}`}
+              href={`mailto:${data.email}`}
               className="mt-2 block w-fit font-mono text-[0.95rem] text-ink transition-colors hover:text-accent"
             >
-              {t.contact.email}
+              {data.email}
             </Link>
           </div>
 
           <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-            {t.contact.links.map((l) => (
+            {data.links.map((l) => (
               <li key={l.label}>
                 <Link
                   href={l.href}

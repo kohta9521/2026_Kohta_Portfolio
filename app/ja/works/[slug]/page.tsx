@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import WorkDetailView from "@/components/layouts/Work/WorkDetailView";
 import JsonLd from "@/components/common/JsonLd/JsonLd";
 import { allWorkSlugs, getWork } from "@/dics/works";
@@ -63,9 +62,7 @@ export default async function Page({
           ]),
         ]}
       />
-      <LanguageProvider lang="ja">
-        <WorkDetailView slug={slug} />
-      </LanguageProvider>
+      <WorkDetailView slug={slug} lang="ja" />
     </>
   );
 }

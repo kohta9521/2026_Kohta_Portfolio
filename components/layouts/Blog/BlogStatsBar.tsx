@@ -1,12 +1,9 @@
-"use client";
-
-import { useLanguage } from "@/contexts/LanguageContext";
+import { type Lang } from "@/lib/i18n";
 import { blogStats, getBlog } from "@/dics/blog";
 
 // blogs page.png 上部の、モノスペースのメタ統計ブロック。
 // 値はデータから決定的に算出（dics/blog.ts の blogStats）。
-export default function BlogStatsBar() {
-  const { lang } = useLanguage();
+export default function BlogStatsBar({ lang }: { lang: Lang }) {
   const s = blogStats(lang);
   const labels = getBlog(lang).index.stats;
 

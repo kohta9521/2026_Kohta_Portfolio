@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { useLanguage, type Lang } from "@/contexts/LanguageContext";
+import type { Lang } from "@/lib/i18n";
 
 const OPTIONS: { value: Lang; label: string }[] = [
   { value: "en", label: "EN" },
@@ -18,8 +18,7 @@ function localizedHref(pathname: string, target: Lang): string {
   return bare;
 }
 
-export default function LanguageSwitcher() {
-  const { lang } = useLanguage();
+export default function LanguageSwitcher({ lang }: { lang: Lang }) {
   const pathname = usePathname() || "/";
 
   return (

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import BlogPostView from "@/components/layouts/Blog/BlogPostView";
 import JsonLd from "@/components/common/JsonLd/JsonLd";
 import { allPostIds, getPost } from "@/dics/blog";
@@ -64,9 +63,7 @@ export default async function Page({
           ]),
         ]}
       />
-      <LanguageProvider lang="en">
-        <BlogPostView id={id} />
-      </LanguageProvider>
+      <BlogPostView id={id} lang="en" />
     </>
   );
 }

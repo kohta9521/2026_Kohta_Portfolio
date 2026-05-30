@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import BlogListView from "@/components/layouts/Blog/BlogListView";
 import { pageMetadata, SEO_COPY } from "@/lib/seo";
 
@@ -15,9 +14,5 @@ export const metadata: Metadata = pageMetadata({
 
 // "/ja/blogs" — 日本語のジャーナル一覧
 export default function Page() {
-  return (
-    <LanguageProvider lang="ja">
-      <BlogListView />
-    </LanguageProvider>
-  );
+  return <BlogListView lang="ja" />;
 }

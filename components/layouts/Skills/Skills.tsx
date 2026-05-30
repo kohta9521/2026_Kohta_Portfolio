@@ -1,10 +1,14 @@
-"use client";
-
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getDictionary, type Lang } from "@/lib/i18n";
 import SectionHead from "@/components/common/SectionHead/SectionHead";
 
-export default function Skills({ no = "§ —" }: { no?: string }) {
-  const { t } = useLanguage();
+export default function Skills({
+  no = "§ —",
+  lang,
+}: {
+  no?: string;
+  lang: Lang;
+}) {
+  const t = getDictionary(lang);
 
   return (
     <section className="pt-24">
