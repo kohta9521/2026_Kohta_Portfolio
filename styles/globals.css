@@ -1,1 +1,347 @@
 @import "tailwindcss";
+
+/* data-theme="dark" を dark: バリアントの基準にする（next-themes 等と併用可） */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ============ TOKENS ============ */
+@theme {
+  /* font families — next/font の変数を受ける */
+  --font-serif:
+    var(--font-newsreader), "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  --font-mono: var(--font-departure), var(--font-zen), ui-monospace, monospace;
+
+  /* type scale */
+  --text-display: clamp(2.5rem, 1.4rem + 4.14vw, 4.4rem);
+  --text-h1: clamp(1.75rem, 1.2rem + 1.71vw, 2.5rem);
+  --text-h2: clamp(1.3rem, 1.05rem + 0.9vw, 1.7rem);
+
+  /* radius / layout */
+  --radius-card: 3px;
+  --spacing: 4px; /* p-1=4px, p-6=24px … 既存スケールと一致 */
+  --container-page: 1180px;
+
+  /* ---- semantic colors (LIGHT を初期値に) ---- */
+  --color-paper: #fbfbfb;
+  --color-paper-raised: #ffffff;
+  --color-paper-sunken: #f0f0f0;
+  --color-ink: oklch(0.235 0 0);
+  --color-ink-2: oklch(0.455 0 0);
+  --color-ink-3: oklch(0.62 0 0);
+  /* 全 border をヘッダーのルール線に統一するため rule と rule-strong を同色に */
+  --color-rule: oklch(0.235 0 0 / 0.4);
+  --color-rule-strong: oklch(0.235 0 0 / 0.4);
+  --color-accent: oklch(0.56 0.27 258); /* 蛍光青（ネオン） */
+  --color-accent-soft: oklch(0.56 0.27 258 / 0.12);
+  --color-accent-sheen: oklch(0.56 0.27 258 / 0.45); /* hover シャインの芯 */
+  --color-accent-dot: oklch(
+    0.55 0.31 258 / 0.85
+  ); /* ドット用：蛍光青を濃いめに */
+  --color-accent-fg: oklch(0.985 0.01 258);
+}
+
+/* ---- DARK: 同じトークンを上書きするだけ。utilities が全部追従する ---- */
+[data-theme="dark"] {
+  --color-paper: #040404;
+  --color-paper-raised: #141414;
+  --color-paper-sunken: #000000;
+  --color-ink: oklch(0.925 0 0);
+  --color-ink-2: oklch(0.72 0 0);
+  --color-ink-3: oklch(0.54 0 0);
+  --color-rule: oklch(1 0 0 / 0.38);
+  --color-rule-strong: oklch(1 0 0 / 0.38);
+  --color-accent: oklch(0.72 0.24 258);
+  --color-accent-soft: oklch(0.72 0.24 258 / 0.18);
+  --color-accent-sheen: oklch(0.72 0.24 258 / 0.55);
+  --color-accent-dot: oklch(0.72 0.27 258 / 0.85);
+  --color-accent-fg: oklch(0.16 0.02 258);
+}
+
+/* ============ BASE ============ */
+@layer base {
+  /* 全体のフォントサイズを一段階(90%)縮小。余白は --spacing(px) 基準なので影響なし */
+  html {
+    font-size: 90%;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "onum" 1;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  /* 全 border をヘッダーのルール線と同じ破線に統一（明示的に border-solid を付けた要素は除く） */
+  *,
+  ::before,
+  ::after {
+    border-style: dashed;
+  }
+}
+
+/* ============ 再利用パターン ============ */
+@layer components {
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-[--radius-card] px-[18px] py-[11px] leading-none;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+      filter 0.16s,
+      border-color 0.16s,
+      color 0.16s;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+  .btn-primary:hover {
+    filter: brightness(1.06);
+  }
+  .btn-ghost {
+    border: 1px dashed var(--color-rule-strong);
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* ヒーローのワードマーク（サイトトップ1回のみ） */
+  .hero-mark {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    letter-spacing: 0.06em;
+    line-height: 1;
+    font-size: clamp(2.4rem, 5.76vw, 5.13rem);
+    word-spacing: 0.12em;
+  }
+  .dotrule {
+    height: 5px;
+    opacity: 0.7;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-ink-3) 0 4px,
+      transparent 4px 9px
+    );
+  }
+
+  /* ドロップキャップ（2行・キャップハイト揃え／上にはみ出さない） */
+  .drop > p::first-letter {
+    -webkit-initial-letter: 2;
+    initial-letter: 2;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-right: 0.4em;
+  }
+  .drop[lang="ja"] > p::first-letter {
+    margin-right: 0.28em;
+  }
+  .tag {
+    @apply inline-flex items-center gap-1.5 rounded-none px-2.5 py-1;
+    border: 1px dashed var(--color-rule-strong);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-2);
+  }
+  .tag-accent {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* ============ Projects カードの先進的 hover ============ */
+  /* 斜めのシャイン（光沢）スイープ + ネオングロー + リフト。
+     prefers-reduced-motion では動きを止め、状態変化だけ残す。 */
+  .card-fx {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    will-change: transform;
+    transition:
+      transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 0.4s ease,
+      box-shadow 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  /* スイープする光の帯 */
+  .card-fx::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+      110deg,
+      transparent 40%,
+      var(--color-accent-soft) 47%,
+      var(--color-accent-sheen) 50%,
+      var(--color-accent-soft) 53%,
+      transparent 60%
+    );
+    background-size: 250% 100%;
+    background-position: 150% 0;
+    opacity: 0;
+    transition:
+      background-position 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+      opacity 0.35s ease;
+  }
+  .card-fx:hover,
+  .card-fx:focus-within {
+    transform: translateY(-5px);
+    border-color: var(--color-accent);
+    box-shadow:
+      0 0 0 1px var(--color-accent-soft),
+      0 20px 46px -24px var(--color-accent),
+      0 10px 24px -20px oklch(0 0 0 / 0.55);
+  }
+  .card-fx:hover::after,
+  .card-fx:focus-within::after {
+    opacity: 1;
+    background-position: -50% 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-fx,
+    .card-fx::after {
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+    .card-fx:hover {
+      transform: none;
+    }
+    .card-fx:hover::after {
+      opacity: 0;
+    }
+  }
+
+  /* ============ Contact フォーム ============ */
+  /* フローティングラベル付き入力。placeholder=" " 前提（:placeholder-shown 判定）。 */
+  .cf-field {
+    position: relative;
+  }
+  .cf-input {
+    @apply w-full rounded-[--radius-card] px-4 pb-2.5 pt-6 font-mono text-[0.86rem] tracking-[0.04em] text-ink;
+    background: var(--color-paper-raised);
+    border: 1px dashed var(--color-rule-strong);
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.3s ease,
+      background-color 0.25s ease;
+  }
+  textarea.cf-input {
+    @apply resize-none leading-[1.5];
+  }
+  .cf-input::placeholder {
+    color: transparent;
+  }
+  .cf-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: var(--color-paper);
+    box-shadow:
+      0 0 0 3px var(--color-accent-soft),
+      0 8px 26px -18px var(--color-accent);
+  }
+  /* ラベル：未入力時はプレースホルダ位置、フォーカス／入力で上に浮く */
+  .cf-label {
+    @apply pointer-events-none absolute left-4 top-[1.15rem] font-mono text-[0.78rem] uppercase tracking-[0.12em];
+    color: var(--color-ink-3);
+    transform-origin: left center;
+    transition:
+      transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1),
+      color 0.2s ease;
+  }
+  .cf-input:focus + .cf-label,
+  .cf-input:not(:placeholder-shown) + .cf-label {
+    transform: translateY(-0.7rem) scale(0.74);
+    color: var(--color-accent);
+  }
+  /* フォーカスで左→右に伸びるスキャンライン */
+  .cf-scan {
+    @apply pointer-events-none absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full;
+    background: var(--color-accent);
+    transition: width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .cf-input:focus ~ .cf-scan {
+    width: calc(100% - 6px);
+  }
+
+  /* 送信ボタン：シャインスイープ + プレス */
+  .cf-submit {
+    @apply relative w-full overflow-hidden rounded-[--radius-card] px-6 py-4 font-mono text-[0.74rem] uppercase tracking-[0.16em] leading-none;
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+    transition:
+      filter 0.2s ease,
+      transform 0.12s ease,
+      box-shadow 0.3s ease;
+  }
+  .cf-submit:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 16px 40px -20px var(--color-accent);
+  }
+  .cf-submit:active {
+    transform: translateY(1px) scale(0.992);
+  }
+  .cf-submit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      110deg,
+      transparent 38%,
+      oklch(1 0 0 / 0.45) 50%,
+      transparent 62%
+    );
+    background-size: 240% 100%;
+    background-position: 150% 0;
+    transition: background-position 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .cf-submit:hover::after {
+    background-position: -40% 0;
+  }
+  .cf-submit:disabled {
+    cursor: default;
+    filter: none;
+  }
+
+  /* スクロールで順次フェードイン */
+  .cf-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.65s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .cf-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cf-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .cf-submit::after,
+    .cf-scan {
+      transition: none;
+    }
+  }
+}
