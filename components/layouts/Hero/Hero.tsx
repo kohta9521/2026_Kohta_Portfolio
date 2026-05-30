@@ -1,6 +1,4 @@
-"use client";
-
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getDictionary, type Lang } from "@/lib/i18n";
 import FilePlate from "@/components/common/FilePlate/FilePlate";
 
 // 段落間に挟むドット背景バンド用の図版（順番に使う）。
@@ -10,18 +8,22 @@ const INTER_FIGS = [
   { src: "/svg/FIG_011_pcb.svg", filename: "FIG.011 / PCB" },
 ];
 
-export default function Hero() {
-  const { t, lang } = useLanguage();
+export default function Hero({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang);
 
   return (
     <section className="py-2">
       <div className="mt-3 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div>
           <div className="hero-mark flex items-center gap-5">
-            <span>{t.hero.title}</span>
+            <span data-reveal="text">{t.hero.title}</span>
           </div>
         </div>
-        <span className="max-w-[52ch] whitespace-pre-line font-serif text-[1.15rem] italic leading-[1.3] text-ink sm:text-[1rem] sm:leading-[1.25] lg:text-right">
+        <span
+          data-reveal="up"
+          data-reveal-delay="0.35"
+          className="max-w-[52ch] whitespace-pre-line font-serif text-[1.15rem] italic leading-[1.3] text-ink sm:text-[1rem] sm:leading-[1.25] lg:text-right"
+        >
           {t.hero.byline}
         </span>
       </div>
@@ -32,7 +34,7 @@ export default function Hero() {
       <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-stretch lg:gap-12">
         <div className="lg:w-[62ch] lg:shrink-0">
           {t.hero.intro.map((para, i) => (
-            <div key={i}>
+            <div key={i} data-reveal="up">
               <div className={i === 0 ? "drop" : "mt-6"} lang={lang}>
                 <p className="text-left text-[1rem] leading-[1.62] text-ink sm:text-justify">
                   {para}
@@ -71,13 +73,18 @@ export default function Hero() {
 
           {/* 右：タイトル + 横並び2ブロック（先頭文字を大きくするのは左ブロックのみ） */}
           <div className="lg:flex-1">
-            <h2 className="font-serif text-[length:--text-h2] font-[430] leading-[1.1] tracking-[-0.01em]">
+            <h2
+              data-reveal="up"
+              className="font-serif text-[length:--text-h2] font-[430] leading-[1.1] tracking-[-0.01em]"
+            >
               {t.hero.creative.title}
             </h2>
             <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:gap-10">
               {t.hero.creative.blocks.map((para, i) => (
                 <div
                   key={i}
+                  data-reveal="up"
+                  data-reveal-delay={i === 1 ? "0.12" : undefined}
                   className={`flex-1 ${i === 0 ? "drop" : ""}`}
                   lang={lang}
                 >

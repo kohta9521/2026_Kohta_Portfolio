@@ -1,12 +1,10 @@
-"use client";
-
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getDictionary, type Lang } from "@/lib/i18n";
 
 // 右カラム（Projects の下）に収める、コンパクトな技術スタック表示。
 // 独立した Skills セクションの 4 カラムグリッドと違い、
 // 狭い幅でも収まる「ラベル + ピル」のグループ積み重ねレイアウト。
-export default function TechStack() {
-  const { t } = useLanguage();
+export default function TechStack({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang);
 
   return (
     <section className="mt-10 border-t border-rule pt-8">

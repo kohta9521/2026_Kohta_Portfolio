@@ -1,16 +1,13 @@
-"use client";
-
 import Link from "next/link";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { langBase, type Lang } from "@/lib/i18n";
 import { getBlog, postFigure } from "@/dics/blog";
 import FilePlate from "@/components/common/FilePlate/FilePlate";
 
 // blogs page.png のグリッド表示。カテゴリごとに、左に説明・右に図版サムネのカード群。
-export default function BlogGrid() {
-  const { lang } = useLanguage();
+export default function BlogGrid({ lang }: { lang: Lang }) {
   const blog = getBlog(lang);
-  const base = lang === "ja" ? "/ja" : "";
+  const base = langBase(lang);
 
   return (
     <div className="space-y-16">

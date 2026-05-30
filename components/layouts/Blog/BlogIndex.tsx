@@ -1,17 +1,14 @@
-"use client";
-
 import Link from "next/link";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { langBase, type Lang } from "@/lib/i18n";
 import { getBlog } from "@/dics/blog";
 import BlogToc from "./BlogToc";
 
 // トップページの §03 セクション。03.png のヘッダ（v1.0 / Table of Contents. / PROGRESS · WORDS）を再現し、
 // 下に目次（BlogToc）と /blogs への導線を置く。
-export default function BlogIndex({ no }: { no?: string }) {
-  const { lang } = useLanguage();
+export default function BlogIndex({ no, lang }: { no?: string; lang: Lang }) {
   const blog = getBlog(lang);
-  const base = lang === "ja" ? "/ja" : "";
+  const base = langBase(lang);
 
   return (
     <section id="journal" className="scroll-mt-8 pt-24">
@@ -35,7 +32,7 @@ export default function BlogIndex({ no }: { no?: string }) {
       </div>
 
       <div className="mt-12">
-        <BlogToc />
+        <BlogToc lang={lang} />
       </div>
 
       <Link

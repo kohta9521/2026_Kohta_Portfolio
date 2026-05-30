@@ -17,11 +17,16 @@ export default function SectionHead({
 }) {
   return (
     <div id={id} className="scroll-mt-8">
-      <div className="flex items-baseline justify-between gap-4 border-t border-rule-strong pt-3">
+      <div
+        data-reveal="up"
+        className="flex items-baseline justify-between gap-4 border-t border-rule-strong pt-3"
+      >
         <span className="label !text-accent">{no}</span>
         <span className="label">{kicker}</span>
       </div>
       <h2
+        data-reveal="up"
+        data-reveal-delay="0.12"
         className={`mt-5 ${titleClassName} font-serif text-[length:--text-h1] font-[430] leading-[1.04] tracking-[-0.015em]`}
       >
         {title}

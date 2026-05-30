@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import type { Lang } from "@/lib/i18n";
+import type { Messages } from "@/dics/types";
 import SectionHead from "@/components/common/SectionHead/SectionHead";
 
 // 2 行を超える説明文だけ、折りたたみ＋展開トグルを出す。
@@ -61,19 +62,25 @@ function CareerDesc({ text, lang }: { text: string; lang: "en" | "ja" }) {
   );
 }
 
-export default function Career({ no = "§ —" }: { no?: string }) {
-  const { t, lang } = useLanguage();
-
+export default function Career({
+  no = "§ —",
+  data,
+  lang,
+}: {
+  no?: string;
+  data: Messages["career"];
+  lang: Lang;
+}) {
   return (
     <section>
       <SectionHead
         no={no}
-        kicker={t.career.kicker}
-        title={t.career.title}
+        kicker={data.kicker}
+        title={data.title}
         titleClassName="max-w-none"
       />
       <ul className="mt-10">
-        {t.career.items.map((c) => (
+        {data.items.map((c) => (
           <li
             key={c.org}
             className="flex flex-col gap-x-10 gap-y-2 border-t border-rule py-6 sm:flex-row"

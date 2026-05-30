@@ -172,7 +172,8 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    will-change: transform;
+    /* will-change は常時付与しない（カード多数で常設レイヤー化しメモリを浪費するため）。
+       transform トランジションは will-change なしでも GPU 合成される。 */
     transition:
       transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
       border-color 0.4s ease,
@@ -342,6 +343,146 @@
     .cf-submit::after,
     .cf-scan {
       transition: none;
+    }
+  }
+
+  /* ============ FX: reveal ガード ============ */
+  /* JS が動くときだけ初期状態を隠す（<html class="reveal-ready"> を inline script が付与）。
+     クローラ / JS 無効 / reduced-motion では常に全文表示 → SEO・アクセシビリティ無害。
+     GSAP が要素を gsap.set/animate して inline style で上書きするまでの「素の状態」を定義。 */
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+  .reveal-ready [data-reveal="up"] {
+    transform: translateY(18px);
+  }
+  /* text / lines は子要素（SplitText）側で動かすので親は opacity のみ */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-ready [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  /* ============ FX: ローディング（初回ブート） ============ */
+  /* DOM には常に存在させ（hydration 安全）、<html class="booting"> の時だけ表示する。
+     booting は初回訪問かつ reduced-motion でない時に inline script が付与。 */
+  .preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .booting .preloader {
+    display: flex;
+  }
+  /* booting 中は背後のスクロールを止める */
+  .booting body {
+    overflow: hidden;
+  }
+  .preloader__inner {
+    width: min(560px, 82vw);
+  }
+  .preloader__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .preloader__count {
+    margin-top: 0.6rem;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(3rem, 12vw, 6rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--color-ink);
+  }
+  .preloader__count b {
+    color: var(--color-accent);
+    font-weight: inherit;
+  }
+  /* 進捗の破線バー（既存 dotrule の意匠を流用） */
+  .preloader__bar {
+    position: relative;
+    height: 5px;
+    margin-top: 1.4rem;
+    opacity: 0.85;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-ink-3) 0 4px,
+      transparent 4px 9px
+    );
+  }
+  .preloader__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-accent) 0 4px,
+      transparent 4px 9px
+    );
+  }
+  .preloader__bottom {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  /* ============ FX: ルート遷移トランジション ============ */
+  .route-enter {
+    animation: route-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes route-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  /* 画面を一度だけ縦断するアクセントのスキャンライン（製図風） */
+  .route-scan {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 90;
+    height: 2px;
+    background: var(--color-accent);
+    box-shadow: 0 0 18px 1px var(--color-accent-sheen);
+    transform-origin: top;
+    pointer-events: none;
+    animation: route-scan 0.7s cubic-bezier(0.5, 0, 0.2, 1) both;
+  }
+  @keyframes route-scan {
+    0% {
+      transform: translateY(-2px) scaleX(0);
+      opacity: 0;
+    }
+    18% {
+      transform: translateY(-2px) scaleX(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) scaleX(1);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .route-enter {
+      animation: none;
+    }
+    .route-scan {
+      display: none;
     }
   }
 }

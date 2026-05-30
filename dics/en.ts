@@ -1,4 +1,5 @@
 import type { Messages } from "./types";
+import { consentCopy } from "./consent";
 
 export const en: Messages = {
   meta: {
@@ -352,6 +353,7 @@ export const en: Messages = {
       orEmail: "or email me directly",
     },
   },
+  consent: consentCopy.en,
   colophon:
     "Set in Newsreader & Departure Mono · Built with Next.js · Tokyo, 2026",
 };

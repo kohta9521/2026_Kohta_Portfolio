@@ -1,4 +1,5 @@
 import type { Messages } from "./types";
+import { consentCopy } from "./consent";
 
 export const ja: Messages = {
   meta: {
@@ -352,5 +353,6 @@ export const ja: Messages = {
       orEmail: "または直接メールでも",
     },
   },
+  consent: consentCopy.ja,
   colophon: "書体は Newsreader と Departure Mono · Next.js で構築 · 東京, 2026",
 };

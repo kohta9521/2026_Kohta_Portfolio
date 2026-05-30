@@ -1,15 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Newsreader,
-  Shippori_Mincho,
-  Zen_Kaku_Gothic_New,
-} from "next/font/google";
+import { Newsreader, Zen_Kaku_Gothic_New } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 
 // styles
 import "../styles/globals.css";
 
+import { GoogleTagManager } from "@next/third-parties/google";
+
 import { SITE_URL, SITE_NAME, SEO_COPY, ogImage } from "@/lib/seo";
+import { GTM_ID, isGtmEnabled } from "@/lib/gtm";
+import Preloader from "@/components/fx/Preloader";
+import ScrollReveal from "@/components/fx/ScrollReveal";
+import RouteAnalytics from "@/components/analytics/RouteAnalytics";
+import ConsentBanner from "@/components/ui/ConsentBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -76,21 +80,17 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
 };
 
+// Newsreader は可変フォント。weight を指定せず軸ごと読み込むことで、
+// 300〜600 + italic を 1 ファイルでまかなう（旧: 静的 8 ファイル）。
 const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-newsreader",
 });
-const shippori = Shippori_Mincho({
-  weight: ["400", "500", "600"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-shippori",
-});
+// Zen Kaku は --font-mono のフォールバックでのみ参照。最小の 400 のみ。
 const zenKaku = Zen_Kaku_Gothic_New({
-  weight: ["400", "500"],
+  weight: ["400"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-zen",
@@ -106,18 +106,42 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // チラつき防止：ペイント前に localStorage / OS 設定からテーマを <html> へ適用する。
-  const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();`;
+  // チラつき防止：ペイント前にテーマを <html> へ適用する。
+  // 方針：デフォルトは常にライト（OS のダーク設定は初期値には反映しない）。
+  // ただしユーザーがトグルで明示的に選んだ場合（localStorage）はそれを尊重して永続化する。
+  // あわせて演出用フラグも付与する：
+  //   reveal-ready … JS が動く環境でだけ [data-reveal] を初期非表示にする（クローラ/JS無効では全文表示）
+  //   booting       … 初回訪問かつ reduced-motion でない時だけプリローダーを表示
+  const themeScript = `(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t='light';}d.setAttribute('data-theme',t);}catch(e){d.setAttribute('data-theme','light');}try{var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!rm){d.classList.add('reveal-ready');if(!sessionStorage.getItem('kk_booted')){d.classList.add('booting');}}}catch(e){}})();`;
+
+  // Consent Mode v2 の既定値を GTM 読み込み前に設定（チラつき防止スクリプトと同様に body 先頭で同期実行）。
+  // 既に同意済みの再訪ユーザーは analytics を granted で開始する。
+  const consentScript = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;(function(){var g='denied';try{if(localStorage.getItem('consent')==='granted'){g='granted';}}catch(e){}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:g,wait_for_update:500});})();`;
 
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${newsreader.variable} ${shippori.variable} ${zenKaku.variable} ${departure.variable}`}
+      className={`${newsreader.variable} ${zenKaku.variable} ${departure.variable}`}
     >
       <body>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* anti-FOUC / consent はペイント前に同期実行する必要があるため beforeInteractive。
+            生の <script> を React ツリーに置くと React 19 が「クライアントでは実行されない」と
+            警告するため、next/script に委譲する（ルートレイアウトでのみ beforeInteractive 可）。 */}
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeScript}
+        </Script>
+        {isGtmEnabled && (
+          <Script id="consent-init" strategy="beforeInteractive">
+            {consentScript}
+          </Script>
+        )}
+        <Preloader />
         {children}
+        <ScrollReveal />
+        <RouteAnalytics />
+        <ConsentBanner />
+        {isGtmEnabled && <GoogleTagManager gtmId={GTM_ID} />}
       </body>
     </html>
   );

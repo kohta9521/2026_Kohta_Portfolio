@@ -1,8 +1,6 @@
-"use client";
-
 import { Fragment } from "react";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getDictionary, type Lang } from "@/lib/i18n";
 import SectionHead from "@/components/common/SectionHead/SectionHead";
 
 // 文中の [[...]] をアクセント（青）文字に置き換える簡易マークアップ。
@@ -22,11 +20,13 @@ function renderItem(text: string) {
 export default function Highlights({
   no = "§ —",
   compact = false,
+  lang,
 }: {
   no?: string;
   compact?: boolean;
+  lang: Lang;
 }) {
-  const { t } = useLanguage();
+  const t = getDictionary(lang);
 
   // コンパクト版：Career の右の flex カラム（TechStack の下）に収める。
   // TechStack のミニ見出しに揃え、番号付きの行リストで魅せる。

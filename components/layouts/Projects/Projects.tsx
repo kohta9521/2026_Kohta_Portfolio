@@ -1,14 +1,18 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getDictionary, langBase, type Lang } from "@/lib/i18n";
 import SectionHead from "@/components/common/SectionHead/SectionHead";
 
-export default function Projects({ no = "§ —" }: { no?: string }) {
-  const { t, lang } = useLanguage();
-  const base = lang === "ja" ? "/ja" : "";
+export default function Projects({
+  no = "§ —",
+  lang,
+}: {
+  no?: string;
+  lang: Lang;
+}) {
+  const t = getDictionary(lang);
+  const base = langBase(lang);
 
   return (
     <section id="work">

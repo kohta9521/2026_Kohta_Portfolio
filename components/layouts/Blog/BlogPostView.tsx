@@ -1,9 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { langBase, type Lang } from "@/lib/i18n";
 import { getBlog, postFigure } from "@/dics/blog";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import BlogProgressRail from "./BlogProgressRail";
@@ -13,10 +11,9 @@ import BlogProgressRail from "./BlogProgressRail";
 // 左：紙の外（グレー上）に置く目次サイドバー＋ブランド。
 // 中央シート上：ミニマルなパンくずヘッダ → 中央寄せの記事ヘッダ → 図版 → 本文。
 // 右端：スクロール進捗の目盛りレール。
-export default function BlogPostView({ id }: { id: string }) {
-  const { lang } = useLanguage();
+export default function BlogPostView({ id, lang }: { id: string; lang: Lang }) {
   const blog = getBlog(lang);
-  const base = lang === "ja" ? "/ja" : "";
+  const base = langBase(lang);
 
   const idx = blog.posts.findIndex((p) => p.id === id);
   const post = blog.posts[idx];
@@ -80,7 +77,7 @@ export default function BlogPostView({ id }: { id: string }) {
         </nav>
 
         <div className="mt-10 border-t border-rule pt-5">
-          <LanguageSwitcher />
+          <LanguageSwitcher lang={lang} />
         </div>
       </aside>
 

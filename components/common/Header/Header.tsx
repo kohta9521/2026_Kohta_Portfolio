@@ -1,14 +1,12 @@
-"use client";
-
 import Link from "next/link";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getDictionary, langBase, type Lang } from "@/lib/i18n";
 import { getBlog } from "@/dics/blog";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
-export default function Header() {
-  const { t, lang } = useLanguage();
-  const base = lang === "ja" ? "/ja" : "";
+export default function Header({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang);
+  const base = langBase(lang);
 
   return (
     <header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-b border-dashed border-rule-strong pt-4 pb-1">
@@ -26,7 +24,7 @@ export default function Header() {
           {getBlog(lang).section.kicker}
         </Link>
         <span className="label !text-ink-3">{t.meta.year}</span>
-        <LanguageSwitcher />
+        <LanguageSwitcher lang={lang} />
       </span>
     </header>
   );

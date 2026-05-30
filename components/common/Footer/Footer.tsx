@@ -1,10 +1,8 @@
-"use client";
-
-import { useLanguage } from "@/contexts/LanguageContext";
+import { getDictionary, type Lang } from "@/lib/i18n";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
-export default function Footer() {
-  const { t } = useLanguage();
+export default function Footer({ lang }: { lang: Lang }) {
+  const t = getDictionary(lang);
 
   return (
     <footer className="flex flex-col gap-4 border-t border-rule py-10 sm:flex-row sm:items-baseline sm:justify-between">

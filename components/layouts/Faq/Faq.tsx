@@ -2,15 +2,20 @@
 
 import { useState } from "react";
 
-import { useLanguage } from "@/contexts/LanguageContext";
+import type { Messages } from "@/dics/types";
 import SectionHead from "@/components/common/SectionHead/SectionHead";
 
 // 04.png の「Common Questions」を再現。
 // 左：質問リスト（選択中は濃く・他はフェード／上下キーで移動）。
 // 右：IN: 質問 / OUT: 回答 のターミナル風カード。
-export default function Faq({ no = "§ —" }: { no?: string }) {
-  const { t } = useLanguage();
-  const items = t.faq.items;
+export default function Faq({
+  no = "§ —",
+  data,
+}: {
+  no?: string;
+  data: Messages["faq"];
+}) {
+  const items = data.items;
   const [active, setActive] = useState(0);
 
   const go = (next: number) => {
@@ -22,7 +27,7 @@ export default function Faq({ no = "§ —" }: { no?: string }) {
 
   return (
     <section id="faq" className="scroll-mt-8 pt-24">
-      <SectionHead no={no} kicker={t.faq.kicker} title={t.faq.title} />
+      <SectionHead no={no} kicker={data.kicker} title={data.title} />
 
       <div className="mt-10 flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-14">
         {/* 左：質問リスト + 縦中央に固定した上下ナビ */}
@@ -30,7 +35,7 @@ export default function Faq({ no = "§ —" }: { no?: string }) {
           <ul
             className="flex-1"
             role="listbox"
-            aria-label={t.faq.title}
+            aria-label={data.title}
             aria-activedescendant={`faq-q-${active}`}
             tabIndex={0}
             onKeyDown={(e) => {

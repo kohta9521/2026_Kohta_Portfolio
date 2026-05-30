@@ -119,5 +119,11 @@ export interface Messages {
       orEmail: string;
     };
   };
+  /** クッキー同意バナー（Consent Mode v2 連動） */
+  consent: {
+    message: string;
+    accept: string;
+    decline: string;
+  };
   colophon: string;
 }

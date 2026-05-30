@@ -162,6 +162,39 @@ const en: BlogStrings = {
       ],
     },
     {
+      id: "understanding-rust-ownership",
+      category: "engineering",
+      title: "Understanding Rust's ownership and borrowing",
+      excerpt:
+        "The one feature that sets Rust apart — memory safety with no garbage collector, enforced at compile time.",
+      date: "2026.02",
+      words: "3.2K",
+      body: [
+        "What sets Rust apart from most languages is its ownership system: it guarantees memory safety at compile time, with no garbage collector running underneath. The whole model rests on three rules. First, every value has exactly one owner — assign a String to another variable and ownership moves to it, leaving the original invalid. These move semantics are what stop two parts of your program from owning the same memory.",
+        "The second rule: when an owner goes out of scope, its value is dropped automatically. Leave a function or a block and the memory is freed for you — no manual free(), no leaks. The third: passing a value into a function moves ownership into that function, so it's always unambiguous who is responsible for a value.",
+        "Ownership alone would make sharing painful, so Rust adds borrowing. An immutable borrow (&) lends a value out read-only — the borrower can read but not mutate — which lets many readers hold a reference at once while the owner keeps ownership. A mutable borrow (&mut) is for when the borrower genuinely needs to change the value, like pushing onto a String.",
+        "The rule that ties it together: you can't mix immutable and mutable borrows. At any moment you may have any number of immutable borrows, or exactly one mutable borrow — never both. That single constraint is what makes data races impossible. Since Rust 2018, Non-Lexical Lifetimes make this ergonomic: a borrow lasts only until its last use, not until the end of the lexical scope, so you can start a new borrow sooner.",
+        "When the compiler can't infer how long a reference stays valid, you annotate lifetimes explicitly (the 'a syntax) — a function that takes two references and returns one has to say which input the result lives as long as. The compiler also kills dangling references outright: try to return a reference to a value that's about to leave scope and it won't compile — move ownership out instead. And reach for borrowing over clone(): cloning copies, which costs; borrowing just hands over a reference.",
+        "Internalise these rules and you get memory safety, GC-free performance, thread safety and explicit control all at once. They feel strict at first, but the compiler is really just walking you through decisions you'd have had to make anyway — and catching the bugs before they ship.",
+      ],
+    },
+    {
+      id: "npm-vs-npx",
+      category: "engineering",
+      title: "Can you explain the difference between npm and npx?",
+      excerpt:
+        "I kept typing both to spin up localhost without really knowing why — so I dug in.",
+      date: "2026.02",
+      words: "1.6K",
+      body: [
+        "While learning front-end development at university, I kept reaching for both npm and npx to spin up a localhost without ever being able to say what actually separated them. That nagging gap felt worth closing, so I sat down and worked it out properly.",
+        "npm — node package manager — ships with Node.js and manages your dependencies: the packages a project depends on, tracked and installed into the node_modules folder. It's the thing that turns a package.json into a working set of libraries on disk.",
+        "npx — node package executer, bundled since npm 5.2.0 — runs packages. Its trick is that it can execute a package you haven't installed: it finds it, installs it, runs it, then cleans up after itself. So instead of adding a tool to package.json's scripts or going through node_modules/.bin, you just run something like `npx vue create my-app` and npx resolves the dependencies for you on the spot.",
+        "Worth a mention alongside them is yarn, the JavaScript package manager Facebook released in 2016 — an alternative to npm that installs faster and pins versions more strictly.",
+        "The real takeaway wasn't the definitions. It was that questioning a command I used on autopilot every day led me to actually understand the machinery underneath it — and that's a habit I want to keep: when a line of 'boilerplate' makes me wonder, go look it up.",
+      ],
+    },
+    {
       id: "what-geo-actually-is",
       category: "ai-fintech",
       title: "What generative engine optimisation actually is",
@@ -322,6 +355,39 @@ const ja: BlogStrings = {
         "型はタイプミスを潰すためのものではない。本当の価値は、リファクタリングを「勇気のいる行為」から「コンパイラが手を引いてくれる作業」に変えてくれることだ。少人数のチームでは、この差がそのまま「出せるか/止まるか」の差になる。",
         "Simple の移行で全体を TypeScript に統一したとき、効いてきたのは初週のバグの少なさではない。半年後、新しく入った人がフィールド名を変えても、赤い波線が呼び出し元を全部見つけてくれると信頼できたことだ。",
         "コストは確かにある。厳密なコードは最初に書くのが遅い。それでも払う。コードは書かれる回数より、読まれて変更される回数の方がずっと多いからだ。",
+      ],
+    },
+    {
+      id: "understanding-rust-ownership",
+      category: "engineering",
+      title: "Rustの所有権と借用を理解する",
+      excerpt:
+        "Rustを他の言語と分けている最大の特徴——ガベージコレクションなしで、コンパイル時にメモリ安全性を保証する仕組み。",
+      date: "2026.02",
+      words: "3.2K",
+      body: [
+        "Rustが他の多くの言語と違う最大の特徴は、その所有権システムだ。ガベージコレクションを動かすことなく、コンパイル時にメモリ安全性を保証する。仕組みは三つのルールに集約される。まず、すべての値はただ一人のオーナーを持つ。String を別の変数に代入すると所有権がそちらへ移動（ムーブ）し、元の変数は無効になる。このムーブセマンティクスが、同じメモリを二箇所から所有してしまう事故を防ぐ。",
+        "二つ目のルール。オーナーがスコープを抜けると、その値は自動的にドロップ（解放）される。関数やブロックを出れば、メモリは勝手に片付く——手動の free() も、リークもない。三つ目。値を関数に渡すと、所有権はその関数へ移動する。だから「いま誰がこの値に責任を持っているか」が常に曖昧にならない。",
+        "所有権だけだと値の共有がつらいので、Rust には借用がある。不変借用（&）は値を読み取り専用で貸し出す——借り手は読めるが変更はできない——ので、オーナーが所有権を保ったまま複数の読み手が同時に参照できる。可変借用（&mut）は、借り手が本当に値を書き換える必要があるとき、たとえば String に文字列を追加するようなときに使う。",
+        "全体を縛るルールはこれだ。不変借用と可変借用は混在できない。任意の時点で、複数の不変借用か、ただ一つの可変借用か、どちらか一方しか成立しない。このたった一つの制約が、データ競合を原理的に不可能にする。Rust 2018 以降の Non-Lexical Lifetimes のおかげで、借用の有効範囲は「最後に使われたところまで」になり、レキシカルなスコープの終わりを待たずに次の借用を始められる。",
+        "コンパイラが参照の有効期間を推論できないときは、ライフタイム（'a）で明示する。たとえば二つの参照を受け取って一つを返す関数は、戻り値がどちらの入力と同じ期間生きるのかを書く必要がある。ダングリング参照もコンパイラが許さない。スコープを抜ける値への参照を返そうとすればコンパイルエラーになり、代わりに所有権ごと返すことになる。そして clone() より借用を選ぶこと。クローンは複製なのでコストがかかるが、借用は参照を渡すだけだ。",
+        "これらのルールが身体に入ると、メモリ安全性・GC不要のパフォーマンス・スレッド安全性・明示的なメモリ管理が一度に手に入る。最初は窮屈に感じるが、コンパイラは結局のところ、どのみち下さなければいけない判断を一緒に歩いてくれて、しかもバグを出荷前に捕まえてくれているだけなのだ。",
+      ],
+    },
+    {
+      id: "npm-vs-npx",
+      category: "engineering",
+      title: "npmとnpxの違い、説明できますか？",
+      excerpt:
+        "localhost を立てるのに両方なんとなく打っていた。だから、ちゃんと調べてみた。",
+      date: "2026.02",
+      words: "1.6K",
+      body: [
+        "大学に通いながらフロントエンド開発を学んでいて、localhost を立てるたびに npm と npx を両方なんとなく打っていた。でも、その違いを自分の言葉で説明できない。その引っかかりを放っておけなくて、きちんと調べ直すことにした。",
+        "npm は node package manager の略で、Node.js をインストールすると使えるようになるパッケージ管理ツールだ。プロジェクトが依存するパッケージを管理し、node_modules フォルダにインストールする。package.json を、ディスク上の実際に動くライブラリ群に変えてくれる存在だと言っていい。",
+        "npx は node package executer の略で、npm 5.2.0 から同梱されている。最大の特徴は、インストールしていないパッケージでも実行できることだ。探してきて、インストールして、実行し、後片付けまでしてくれる。だから package.json の scripts に書いたり node_modules/.bin を経由したりしなくても、`npx vue create プロジェクト名` のように直接実行でき、依存関係はその場で解決される。",
+        "あわせて触れておくと、yarn は Facebook が 2016 年に公開した JavaScript のパッケージマネージャで、npm より高速で、バージョン指定がより厳密という利点がある。",
+        "本当の収穫は定義そのものではなかった。毎日オートパイロットで打っていたコマンドを疑ってみたら、その裏側の仕組みをちゃんと理解できた——という体験のほうだ。これからも、引っかかった「お決まりのコード」は面倒がらずに調べにいく。そういう姿勢を持ち続けたい。",
       ],
     },
     {

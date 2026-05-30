@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import HomeView from "@/components/layouts/HomeView/HomeView";
 import JsonLd from "@/components/common/JsonLd/JsonLd";
 import { pageMetadata, personJsonLd, websiteJsonLd, SEO_COPY } from "@/lib/seo";
@@ -19,9 +18,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={[personJsonLd(), websiteJsonLd()]} />
-      <LanguageProvider lang="ja">
-        <HomeView />
-      </LanguageProvider>
+      <HomeView lang="ja" />
     </>
   );
 }
