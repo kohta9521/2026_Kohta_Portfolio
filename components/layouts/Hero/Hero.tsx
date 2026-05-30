@@ -18,7 +18,7 @@ export default function Hero() {
       <div className="mt-3 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div>
           <div className="hero-mark flex items-center gap-5">
-            <span className="text-[1.3rem]">{t.hero.title}</span>
+            <span>{t.hero.title}</span>
           </div>
         </div>
         <span className="max-w-[52ch] whitespace-pre-line font-serif text-[1.15rem] italic leading-[1.3] text-ink sm:text-[1rem] sm:leading-[1.25] lg:text-right">
