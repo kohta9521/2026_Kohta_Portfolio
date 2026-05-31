@@ -22,7 +22,7 @@ export default function BlogListView({ lang }: { lang: Lang }) {
 
       {/* 中央寄せタイトル + 表示トグル（トグル以下はクライアント島） */}
       <section className="pt-20 text-center">
-        <h1 className="font-serif text-[length:--text-display] font-[430] leading-[1.0] tracking-[-0.02em]">
+        <h1 className="font-serif text-display font-[430] leading-[1.0] tracking-[-0.02em]">
           {blog.index.title}
         </h1>
 

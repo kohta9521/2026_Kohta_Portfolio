@@ -210,4 +210,16 @@ export const SEO_COPY = {
         "河内光太のジャーナル。エンジニアリング・デザイン・ものづくりに関する記録。",
     },
   },
+  ai: {
+    en: {
+      title: "AI · LLM README",
+      description:
+        "A machine-readable, structured summary of Kohta Kouchi — profile, career, skills, work, FAQ and contact in one document, written for large language models and AI search engines to read and cite accurately.",
+    },
+    ja: {
+      title: "AI · LLM README",
+      description:
+        "河内光太の機械可読な構造化サマリー。プロフィール・経歴・スキル・実績・FAQ・連絡先を1つの文書に集約し、LLM や AI 検索エンジンが正確に読み取り・引用できるように記述。",
+    },
+  },
 } as const;

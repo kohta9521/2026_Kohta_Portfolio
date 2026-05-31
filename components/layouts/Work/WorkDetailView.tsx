@@ -106,10 +106,10 @@ export default function WorkDetailView({
             {work.period}
             {work.role ? ` · ${work.role}` : ""}
           </p>
-          <h1 className="mx-auto mt-4 max-w-[20ch] font-serif text-[length:--text-display] font-[430] leading-[1.02] tracking-[-0.02em]">
+          <h1 className="mx-auto mt-4 max-w-[20ch] font-serif text-display font-[430] leading-[1.02] tracking-[-0.02em]">
             {work.title}
           </h1>
-          <p className="mx-auto mt-5 max-w-[48ch] font-serif text-[1.18rem] italic leading-[1.4] text-ink-2">
+          <p className="mx-auto mt-5 max-w-[48ch] font-serif text-[1.35rem] italic leading-[1.4] text-ink-2">
             {work.desc}
           </p>
           <div className="dotrule mx-auto mt-9 w-16" />

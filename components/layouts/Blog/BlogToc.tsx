@@ -27,7 +27,7 @@ export default function BlogToc({ lang }: { lang: Lang }) {
                     href={`${base}/blogs/${p.id}`}
                     className="group flex items-baseline gap-2 py-[0.45rem] text-ink-2 transition-colors hover:text-accent"
                   >
-                    <span className="font-serif text-[0.98rem] leading-[1.3]">
+                    <span className="font-serif text-[0.98rem] font-[560] leading-[1.3]">
                       {p.title}
                     </span>
                     <span
