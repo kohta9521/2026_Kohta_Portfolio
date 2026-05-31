@@ -338,9 +338,11 @@ export const en: Messages = {
     body: "Open to product work, design-engineering roles and the occasional small, strange project. The fastest way to reach me is email.",
     email: "kohta.kochi@noahlogy.com",
     links: [
-      { label: "LinkedIn", href: "#" },
-      { label: "YOUTRUST", href: "#" },
-      { label: "Wantedly", href: "#" },
+      { label: "GitHub", href: "https://github.com/kohta9521" },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/%E5%85%89%E5%A4%AA-%E6%B2%B3%E5%86%85-89476b2a2/",
+      },
     ],
     form: {
       name: "Your name",

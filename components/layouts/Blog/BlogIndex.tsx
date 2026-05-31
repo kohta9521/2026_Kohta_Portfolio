@@ -19,7 +19,7 @@ export default function BlogIndex({ no, lang }: { no?: string; lang: Lang }) {
       </div>
 
       <div className="mt-5 flex items-end justify-between gap-6">
-        <h2 className="flex items-baseline gap-3 font-serif text-[length:--text-h1] font-[430] leading-[1.04] tracking-[-0.015em]">
+        <h2 className="flex items-baseline gap-3 font-serif text-h1 font-[430] leading-[1.04] tracking-[-0.015em]">
           <span className="label !text-ink-3">{blog.section.version}</span>
           {blog.section.title}
         </h2>

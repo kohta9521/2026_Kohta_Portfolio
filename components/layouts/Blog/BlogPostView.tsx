@@ -24,13 +24,14 @@ export default function BlogPostView({ id, lang }: { id: string; lang: Lang }) {
   const next = idx < blog.posts.length - 1 ? blog.posts[idx + 1] : undefined;
 
   return (
-    // 台紙：ごく薄いグレー（paper）。白いシート（paper-raised）との差はわずか。
-    // トークン参照なのでダークモードにもそのまま追従する。
-    <div className="flex min-h-screen bg-paper">
+    // 台紙：限りなく白に近いグレー（paper-sunken）。純白の PDF ページとの差はわずか。
+    // トークン参照なのでダークモードにもそのまま追従する。area を仕切る border は引かない。
+    <div className="flex min-h-screen justify-center bg-paper-sunken px-4 sm:px-6 lg:px-12 xl:items-start xl:gap-10 xl:px-8">
       <BlogProgressRail />
 
-      {/* 左：サイドバー（台紙のグレー上） */}
-      <aside className="sticky top-0 hidden max-h-screen w-72 shrink-0 flex-col overflow-y-auto py-8 pl-6 pr-8 lg:flex lg:pl-10">
+      {/* 左：目次サイドバー（グレー台紙の上・仕切り線なし）。
+          xl 未満ではページを中央の純白シート1枚に集中させるため非表示。 */}
+      <aside className="sticky top-16 mt-14 hidden max-h-[calc(100vh-8rem)] w-72 shrink-0 flex-col overflow-y-auto xl:flex">
         <Link
           href={`${base}/blogs`}
           className="label !text-accent transition-opacity hover:opacity-70"
@@ -76,15 +77,16 @@ export default function BlogPostView({ id, lang }: { id: string; lang: Lang }) {
           })}
         </nav>
 
-        <div className="mt-10 border-t border-rule pt-5">
+        {/* 言語切替（仕切り線は引かず余白だけで区切る） */}
+        <div className="mt-10 pt-5">
           <LanguageSwitcher lang={lang} />
         </div>
       </aside>
 
-      {/* 中央〜右：サイドバー以外を埋める白いシート（右端までフル幅） */}
-      <div className="min-w-0 flex-1 border-l border-rule bg-paper-raised shadow-[-1px_0_40px_-12px_rgba(0,0,0,0.10)]">
-        {/* パンくずヘッダ（ミニマル・シート全幅） */}
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-rule bg-paper-raised/95 px-5 py-3 backdrop-blur sm:px-8">
+      {/* 中央：白い PDF ページ。全方向 shadow で気持ち浮かせる。仕切り border は一切なし。 */}
+      <div className="relative my-10 min-h-[70vh] w-full min-w-0 max-w-[840px] bg-paper-raised shadow-[0_2px_10px_-4px_rgba(0,0,0,0.12),0_30px_80px_-24px_rgba(0,0,0,0.22)] lg:my-14">
+        {/* パンくずヘッダ（ミニマル・仕切り線なし／白紙に溶け込む） */}
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 bg-paper-raised/85 px-5 py-3 backdrop-blur sm:px-8">
           <div className="flex min-w-0 items-center gap-3">
             <span className="flex items-center gap-2 text-ink-3">
               {prev ? (
@@ -143,16 +145,19 @@ export default function BlogPostView({ id, lang }: { id: string; lang: Lang }) {
         </div>
 
         {/* 記事本体 */}
-        <article className="mx-auto max-w-[74ch] px-6 pb-24 pt-14 sm:px-12">
+        <article
+          id="blog-article"
+          className="mx-auto max-w-[74ch] px-6 pb-24 pt-14 sm:px-12 lg:px-16"
+        >
           {/* 中央寄せヘッダ */}
           <header className="text-center">
             <p className="label !text-ink-3">
               {post.words} {blog.post.wordsLabel} · {blog.post.author}
             </p>
-            <h1 className="mx-auto mt-5 max-w-[18ch] font-serif text-[length:--text-display] font-[430] leading-[1.02] tracking-[-0.02em]">
+            <h1 className="mx-auto mt-5 max-w-[18ch] font-serif text-[length:clamp(2.15rem,1.3rem+3.4vw,3.8rem)] font-[430] leading-[0.98] tracking-[-0.02em]">
               {post.title}
             </h1>
-            <p className="mx-auto mt-5 max-w-[46ch] font-serif text-[1.18rem] italic leading-[1.4] text-ink-2">
+            <p className="mx-auto mt-5 max-w-[46ch] font-serif text-[1.35rem] italic leading-[1.4] text-ink-2">
               {post.excerpt}
             </p>
             <div className="mx-auto mt-8 h-px w-10 bg-rule-strong" />
@@ -173,15 +178,43 @@ export default function BlogPostView({ id, lang }: { id: string; lang: Lang }) {
             </figcaption>
           </figure>
 
-          {/* 本文（先頭にドロップキャップ） */}
+          {/* 本文（先頭にドロップキャップ）。
+              "## 見出し" / "### 小見出し" の行は id 付き h2/h3 に変換し、
+              右レールのアンカーから飛べるようにする。 */}
           <div className="mt-14 space-y-6">
-            {post.body.map((para, i) => (
-              <div key={i} className={i === 0 ? "drop" : ""} lang={lang}>
-                <p className="text-left text-[1.05rem] leading-[1.72] text-ink sm:text-justify">
-                  {para}
-                </p>
-              </div>
-            ))}
+            {post.body.map((para, i) => {
+              const m3 = /^###\s+(.+)/.exec(para);
+              if (m3) {
+                return (
+                  <h3
+                    key={i}
+                    id={`sec-${i}`}
+                    className="scroll-mt-24 pt-3 font-serif text-[1.25rem] font-[460] leading-[1.2] tracking-[-0.01em]"
+                  >
+                    {m3[1]}
+                  </h3>
+                );
+              }
+              const m2 = /^##\s+(.+)/.exec(para);
+              if (m2) {
+                return (
+                  <h2
+                    key={i}
+                    id={`sec-${i}`}
+                    className="scroll-mt-24 pt-5 font-serif text-[1.6rem] font-[440] leading-[1.18] tracking-[-0.015em]"
+                  >
+                    {m2[1]}
+                  </h2>
+                );
+              }
+              return (
+                <div key={i} className={i === 0 ? "drop" : ""} lang={lang}>
+                  <p className="text-left text-[1.05rem] leading-[1.72] text-ink sm:text-justify">
+                    {para}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
           {/* 前後の記事 */}
@@ -210,7 +243,7 @@ export default function BlogPostView({ id, lang }: { id: string; lang: Lang }) {
         </article>
 
         {/* モバイル用：一覧へ戻る */}
-        <div className="px-6 pb-10 sm:px-12 lg:hidden">
+        <div className="px-6 pb-10 sm:px-12 xl:hidden">
           <Link
             href={`${base}/blogs`}
             className="label !text-ink-2 transition-colors hover:!text-accent"

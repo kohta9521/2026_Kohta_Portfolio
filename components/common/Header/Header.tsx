@@ -10,9 +10,14 @@ export default function Header({ lang }: { lang: Lang }) {
 
   return (
     <header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-b border-dashed border-rule-strong pt-4 pb-1">
-      <span className="label !text-ink-3">
+      {/* ブランド表記をそのまま home への動線にする（常時ヘッダ上部からトップへ戻れる） */}
+      <Link
+        href={base || "/"}
+        aria-label="Home"
+        className="label !text-ink-3 transition-opacity hover:opacity-70"
+      >
         <b className="font-normal text-accent">ENGINEERING</b> PORTFOLIO
-      </span>
+      </Link>
       <span className="label !text-ink-3 hidden md:inline">
         {t.nav.tagline}
       </span>

@@ -127,7 +127,8 @@
     color: var(--color-accent);
     letter-spacing: 0.06em;
     line-height: 1;
-    font-size: clamp(2.4rem, 5.76vw, 5.13rem);
+    /* clamp 下限を上げてスマホでも大きく見せる（中域 vw / 上限はそのまま＝PC は不変） */
+    font-size: clamp(2.9rem, 5.76vw, 5.13rem);
     word-spacing: 0.12em;
   }
   .dotrule {
@@ -236,7 +237,8 @@
     position: relative;
   }
   .cf-input {
-    @apply w-full rounded-[--radius-card] px-4 pb-2.5 pt-6 font-mono text-[0.86rem] tracking-[0.04em] text-ink;
+    /* モバイルは行高を詰めてコンパクトに。sm 以上で従来の余裕に戻す。 */
+    @apply w-full rounded-[--radius-card] px-3.5 pb-1.5 pt-[1.3rem] font-mono text-[0.8rem] tracking-[0.04em] text-ink sm:px-4 sm:pb-2.5 sm:pt-6 sm:text-[0.86rem];
     background: var(--color-paper-raised);
     border: 1px dashed var(--color-rule-strong);
     transition:
@@ -245,7 +247,7 @@
       background-color 0.25s ease;
   }
   textarea.cf-input {
-    @apply resize-none leading-[1.5];
+    @apply resize-none leading-[1.45] sm:leading-[1.5];
   }
   .cf-input::placeholder {
     color: transparent;
@@ -260,7 +262,7 @@
   }
   /* ラベル：未入力時はプレースホルダ位置、フォーカス／入力で上に浮く */
   .cf-label {
-    @apply pointer-events-none absolute left-4 top-[1.15rem] font-mono text-[0.78rem] uppercase tracking-[0.12em];
+    @apply pointer-events-none absolute left-3.5 top-[0.92rem] font-mono text-[0.72rem] uppercase tracking-[0.12em] sm:left-4 sm:top-[1.15rem] sm:text-[0.78rem];
     color: var(--color-ink-3);
     transform-origin: left center;
     transition:
@@ -269,8 +271,14 @@
   }
   .cf-input:focus + .cf-label,
   .cf-input:not(:placeholder-shown) + .cf-label {
-    transform: translateY(-0.7rem) scale(0.74);
+    transform: translateY(-0.58rem) scale(0.72);
     color: var(--color-accent);
+  }
+  @media (min-width: 640px) {
+    .cf-input:focus + .cf-label,
+    .cf-input:not(:placeholder-shown) + .cf-label {
+      transform: translateY(-0.7rem) scale(0.74);
+    }
   }
   /* フォーカスで左→右に伸びるスキャンライン */
   .cf-scan {
@@ -284,7 +292,7 @@
 
   /* 送信ボタン：シャインスイープ + プレス */
   .cf-submit {
-    @apply relative w-full overflow-hidden rounded-[--radius-card] px-6 py-4 font-mono text-[0.74rem] uppercase tracking-[0.16em] leading-none;
+    @apply relative w-full overflow-hidden rounded-[--radius-card] px-6 py-3 font-mono text-[0.7rem] uppercase tracking-[0.16em] leading-none sm:py-4 sm:text-[0.74rem];
     background: var(--color-accent);
     color: var(--color-accent-fg);
     transition:

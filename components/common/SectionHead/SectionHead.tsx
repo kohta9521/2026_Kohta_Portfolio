@@ -27,7 +27,7 @@ export default function SectionHead({
       <h2
         data-reveal="up"
         data-reveal-delay="0.12"
-        className={`mt-5 ${titleClassName} font-serif text-[length:--text-h1] font-[430] leading-[1.04] tracking-[-0.015em]`}
+        className={`mt-5 ${titleClassName} font-serif text-h1 font-[430] leading-[1.04] tracking-[-0.015em]`}
       >
         {title}
       </h2>

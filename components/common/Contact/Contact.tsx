@@ -80,7 +80,7 @@ export default function Contact({
 
       <div
         ref={wrapRef}
-        className="mt-10 grid gap-x-16 gap-y-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start"
+        className="mt-8 grid gap-x-16 gap-y-8 sm:mt-10 sm:gap-y-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start"
       >
         {/* 左：リード文 + 直接メール + SNS */}
         <div className={reveal} style={{ transitionDelay: "60ms" }}>
@@ -88,21 +88,13 @@ export default function Contact({
             {data.body}
           </p>
 
-          <div className="mt-8">
-            <span className="label">{f.orEmail}</span>
-            <Link
-              href={`mailto:${data.email}`}
-              className="mt-2 block w-fit font-mono text-[0.95rem] text-ink transition-colors hover:text-accent"
-            >
-              {data.email}
-            </Link>
-          </div>
-
           <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
             {data.links.map((l) => (
               <li key={l.label}>
                 <Link
                   href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="label inline-flex items-center gap-1.5 !text-ink-2 transition-colors hover:!text-accent"
                 >
                   {l.label}
@@ -116,7 +108,7 @@ export default function Contact({
         {/* 右：フォーム */}
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-2.5 sm:gap-4"
           noValidate
         >
           <div className={reveal} style={{ transitionDelay: "140ms" }}>
@@ -162,7 +154,7 @@ export default function Contact({
               <textarea
                 id="cf-message"
                 required
-                rows={4}
+                rows={3}
                 placeholder=" "
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}

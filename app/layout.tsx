@@ -68,7 +68,15 @@ export const metadata: Metadata = {
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/icon.svg" }],
+    // iOS は apple-touch-icon に SVG を使わないため PNG(180×180) を指定する。
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  // Search Console / Bing の所有権確認。コードは触らず Vercel の環境変数で差し込む。
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : {},
   },
 };
 

@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["", "/ja"],
     ["/works", "/ja/works"],
     ["/blogs", "/ja/blogs"],
+    ["/ai", "/ja/ai"],
     ...allWorkSlugs().map(
       (s) => [`/works/${s}`, `/ja/works/${s}`] as [string, string]
     ),

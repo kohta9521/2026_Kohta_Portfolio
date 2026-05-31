@@ -142,8 +142,11 @@ const en: BlogStrings = {
       date: "2026.04",
       words: "3.8K",
       body: [
+        "## The fear is the old stack, not the new one",
         "The scary part of a replatform is never the new stack — it's that the old one is still earning the company's money while you tear it apart. At Simple I rebuilt a job-change information site from Laravel and Vue.js onto TypeScript, Next.js, Tailwind, Go and AWS, and the one rule that mattered was: the business never feels it.",
+        "## Route by route, never big-bang",
         "We moved route by route rather than big-bang. Each page got rebuilt behind the same URLs, shipped to a fraction of traffic, compared against the old output, then ramped. Boring on purpose. The interesting decisions were about where to draw the seam between old and new so the two could coexist for months without turning into a tangle.",
+        "## The migration plan is the product",
         "What I took away: the migration plan is a product in itself. If you can't explain the rollback in one sentence, you're not ready to ship the step.",
       ],
     },
@@ -338,8 +341,11 @@ const ja: BlogStrings = {
       date: "2026.04",
       words: "3.8K",
       body: [
+        "## 怖いのは旧スタックの方だ",
         "リプレイスで怖いのは新しい技術スタックではない。壊している最中も、古い方が会社の売上を稼ぎ続けているという事実だ。Simple では転職情報サイトを Laravel・Vue.js から TypeScript・Next.js・Tailwind・Go・AWS へ刷新したが、守るべきルールはただ一つ——事業側に絶対に気づかれないこと、だった。",
+        "## ビッグバンではなくルート単位で",
         "ビッグバンではなく、ルート単位で移していった。各ページを同じ URL の裏で作り直し、一部のトラフィックにだけ出し、旧出力と突き合わせ、問題なければ比率を上げる。意図的に退屈な進め方だ。面白い判断は、新旧が何ヶ月も共存しても破綻しないよう、どこに継ぎ目を引くかにあった。",
+        "## 移行計画こそがプロダクト",
         "学びはこうだ。移行計画それ自体が一つのプロダクトだ。ロールバックを一文で説明できないなら、そのステップはまだ出す準備ができていない。",
       ],
     },
