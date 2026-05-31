@@ -14,7 +14,7 @@ export const en: Messages = {
   hero: {
     kicker: "PROFILE — Who is Kohta?",
     nameJa: "河内 光太",
-    title: "Kohta Kouchi",
+    title: "KOHTA KOCHI",
     byline:
       "It's not that I'm so smart,\nit's just that I stay with problems longer.",
     intro: [
