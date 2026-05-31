@@ -44,6 +44,15 @@ export default function ScrollReveal() {
           const delayOf = (el: Element) =>
             parseFloat(el.getAttribute("data-reveal-delay") || "0") || 0;
 
+          // 演出完了後、要素を「恒久的に表示」状態へ確定させる。
+          // data-reveal を外して CSS の初期非表示(.reveal-ready [data-reveal]) の対象から
+          // 外し、インラインも clear する。これで以降 ScrollTrigger.refresh（スマホの
+          // アドレスバー伸縮やフォント遅延読込で発生）やリフローが起きてもテキストが消えない。
+          const settle = (el: HTMLElement, props: string) => {
+            el.removeAttribute("data-reveal");
+            gsap.set(el, { clearProps: props });
+          };
+
           // --- up / fade ---
           gsap.utils
             .toArray<HTMLElement>('[data-reveal="up"], [data-reveal="fade"]')
@@ -57,6 +66,7 @@ export default function ScrollReveal() {
                 delay: delayOf(el),
                 ease: "power3.out",
                 scrollTrigger: { trigger: el, start: "top 88%", once: true },
+                onComplete: () => settle(el, "opacity,transform"),
               });
             });
 
@@ -77,6 +87,12 @@ export default function ScrollReveal() {
                 stagger: 0.03,
                 delay: delayOf(el),
                 scrollTrigger: { trigger: el, start: "top 90%", once: true },
+                // 完了後は分割を解除して素のテキストに戻す（マスクのクリップで
+                // リフロー時に文字が隠れて消えるのを防ぐ）。
+                onComplete: () => {
+                  split.revert();
+                  settle(el, "opacity");
+                },
               });
             });
 
@@ -97,6 +113,10 @@ export default function ScrollReveal() {
                 stagger: 0.09,
                 delay: delayOf(el),
                 scrollTrigger: { trigger: el, start: "top 86%", once: true },
+                onComplete: () => {
+                  split.revert();
+                  settle(el, "opacity");
+                },
               });
             });
 

@@ -14,7 +14,7 @@ export const ja: Messages = {
   hero: {
     kicker: "PROFILE — 河内 光太とは？",
     nameJa: "河内 光太",
-    title: "Kohta Kouchi",
+    title: "KOHTA KOCHI",
     byline:
       "私が特別に賢いわけではない。\nただ、人より長く問題に向き合い続けているだけだ。",
     intro: [
