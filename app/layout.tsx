@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Zen_Kaku_Gothic_New } from "next/font/google";
+import { Newsreader } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
 
@@ -96,13 +96,6 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
   variable: "--font-newsreader",
 });
-// Zen Kaku は --font-mono のフォールバックでのみ参照。最小の 400 のみ。
-const zenKaku = Zen_Kaku_Gothic_New({
-  weight: ["400"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-zen",
-});
 const departure = localFont({
   src: "../public/fonts/DepartureMono-Regular.woff2",
   display: "swap",
@@ -130,7 +123,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${newsreader.variable} ${zenKaku.variable} ${departure.variable}`}
+      className={`${newsreader.variable} ${departure.variable}`}
     >
       <body>
         {/* anti-FOUC / consent はペイント前に同期実行する必要があるため beforeInteractive。

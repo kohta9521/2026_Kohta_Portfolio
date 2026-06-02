@@ -43,10 +43,12 @@ export default function Preloader() {
         const counter = { v: 0 };
         tl = gsap.timeline({ onComplete: finish });
 
-        // カウンタ 000 → 100 とバー充填
+        // カウンタ 000 → 100 とバー充填。
+        // LCP 配慮で短め（旧 1.15s）。初回セッションは PSI/Lighthouse の計測条件でもあり、
+        // ここを縮めると実コンテンツのペイントが早まる。
         tl.to(counter, {
           v: 100,
-          duration: 1.15,
+          duration: 0.7,
           ease: "power2.inOut",
           onUpdate: () => {
             const n = Math.round(counter.v);
@@ -60,10 +62,10 @@ export default function Preloader() {
         });
 
         // 余韻 → 上方向へスライドアウト
-        tl.to({}, { duration: 0.18 });
+        tl.to({}, { duration: 0.1 });
         tl.to(rootRef.current, {
           yPercent: -100,
-          duration: 0.7,
+          duration: 0.5,
           ease: "power4.inOut",
         });
       } catch {

@@ -11,7 +11,7 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://kohta-portfolio.vercel.app"
 ).replace(/\/$/, "");
 
-export const SITE_NAME = "Kohta Kouchi — Portfolio";
+export const SITE_NAME = "Kohta Kochi — Portfolio";
 
 const dict = { en, ja };
 const OG_LOCALE: Record<Lang, string> = { en: "en_US", ja: "ja_JP" };
@@ -93,8 +93,19 @@ export function personJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Kohta Kouchi",
-    alternateName: "河内光太",
+    name: "Kohta Kochi",
+    // 名前検索（和名・ローマ字・かな・誤変換）で人物エンティティを確実に紐付ける。
+    alternateName: [
+      "河内 光太",
+      "河内光太",
+      "こうち こうた",
+      "コウチ コウタ",
+      "Kohta Kochi",
+      "Kohta Kouchi",
+      "Kota Kochi",
+    ],
+    givenName: "光太",
+    familyName: "河内",
     url: SITE_URL,
     jobTitle: "COO / PdM / Software Engineer",
     email: `mailto:${en.contact.email}`,
@@ -148,7 +159,7 @@ export function blogPostingJsonLd(opts: {
     url: `${SITE_URL}${opts.path}`,
     mainEntityOfPage: `${SITE_URL}${opts.path}`,
     ...(opts.datePublished ? { datePublished: opts.datePublished } : {}),
-    author: { "@type": "Person", name: "Kohta Kouchi", url: SITE_URL },
+    author: { "@type": "Person", name: "Kohta Kochi", url: SITE_URL },
   };
 }
 
@@ -167,7 +178,7 @@ export function creativeWorkJsonLd(opts: {
     inLanguage: opts.lang,
     url: `${SITE_URL}${opts.path}`,
     ...(opts.image ? { image: `${SITE_URL}${opts.image}` } : {}),
-    author: { "@type": "Person", name: "Kohta Kouchi", url: SITE_URL },
+    author: { "@type": "Person", name: "Kohta Kochi", url: SITE_URL },
   };
 }
 
@@ -176,9 +187,9 @@ export function creativeWorkJsonLd(opts: {
 export const SEO_COPY = {
   home: {
     en: {
-      title: "Kohta Kouchi — COO · PdM · Software Engineer",
+      title: "Kohta Kochi — COO · PdM · Software Engineer",
       description:
-        "Portfolio of Kohta Kouchi — a COO, PdM and software engineer bridging law and engineering. Full-stack development, product management and design across Mercari, QueryLift and more.",
+        "Portfolio of Kohta Kochi (Kohta Kouchi / 河内光太) — a COO, PdM and software engineer bridging law and engineering. Full-stack development, product management and design across Mercari, QueryLift and more.",
     },
     ja: {
       title: "河内光太 — COO・PdM・ソフトウェアエンジニア",
@@ -190,7 +201,7 @@ export const SEO_COPY = {
     en: {
       title: "Work",
       description:
-        "Selected projects and personal work by Kohta Kouchi — products built end to end from design to implementation.",
+        "Selected projects and personal work by Kohta Kochi — products built end to end from design to implementation.",
     },
     ja: {
       title: "制作",
@@ -202,7 +213,7 @@ export const SEO_COPY = {
     en: {
       title: "Journal",
       description:
-        "Notes on engineering, design and building products by Kohta Kouchi.",
+        "Notes on engineering, design and building products by Kohta Kochi.",
     },
     ja: {
       title: "ジャーナル",
@@ -214,7 +225,7 @@ export const SEO_COPY = {
     en: {
       title: "AI · LLM README",
       description:
-        "A machine-readable, structured summary of Kohta Kouchi — profile, career, skills, work, FAQ and contact in one document, written for large language models and AI search engines to read and cite accurately.",
+        "A machine-readable, structured summary of Kohta Kochi — profile, career, skills, work, FAQ and contact in one document, written for large language models and AI search engines to read and cite accurately.",
     },
     ja: {
       title: "AI · LLM README",
