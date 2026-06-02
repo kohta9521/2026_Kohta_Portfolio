@@ -5,10 +5,10 @@ import { ja } from "@/dics/ja";
 
 export type Lang = "en" | "ja";
 
-// 本番ドメインは環境変数で差し込む（未設定時は Vercel 既定にフォールバック）。
-// canonical / OGP の絶対URL生成に必須。
+// 本番ドメインは環境変数で差し込む（未設定時は本番ドメインにフォールバック）。
+// canonical / OGP / sitemap / robots / JSON-LD の絶対URL生成に必須。
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kohta-portfolio.vercel.app"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kohta-engineer.com"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "Kohta Kochi — Portfolio";
