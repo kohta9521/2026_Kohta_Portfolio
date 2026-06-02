@@ -23,11 +23,9 @@ export default function Hero({ lang }: { lang: Lang }) {
             <span className="hero-in">{t.hero.title}</span>
           </h1>
         </div>
-        <span
-          data-reveal="up"
-          data-reveal-delay="0.35"
-          className="max-w-[52ch] whitespace-pre-line font-serif text-[0.85rem] italic leading-[1.25] text-ink sm:text-[1rem] sm:leading-[1.25] lg:text-right"
-        >
+        {/* ファーストビュー（above-the-fold）。LCP/FCP を遅らせないため reveal で
+            opacity:0 にせず、最初の描画から見せる。演出は下スクロール以降に限定。 */}
+        <span className="max-w-[52ch] whitespace-pre-line font-serif text-[0.85rem] italic leading-[1.25] text-ink sm:text-[1rem] sm:leading-[1.25] lg:text-right">
           {t.hero.byline}
         </span>
       </div>
@@ -38,7 +36,8 @@ export default function Hero({ lang }: { lang: Lang }) {
       <div className="mt-6 flex flex-col gap-6 lg:mt-8 lg:flex-row lg:items-stretch lg:gap-12">
         <div className="lg:w-[62ch] lg:shrink-0">
           {t.hero.intro.map((para, i) => (
-            <div key={i} data-reveal="up">
+            // 先頭段落は LCP 要素。reveal でゲートせず即描画する（i>0 のみ演出）。
+            <div key={i} data-reveal={i === 0 ? undefined : "up"}>
               <div className={i === 0 ? "drop" : "mt-4 lg:mt-6"} lang={lang}>
                 <p className="text-left text-[1rem] leading-[1.62] text-ink sm:text-justify">
                   {para}
