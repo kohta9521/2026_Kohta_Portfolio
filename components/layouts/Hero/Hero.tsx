@@ -15,11 +15,13 @@ export default function Hero({ lang }: { lang: Lang }) {
     <section className="py-2">
       <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div>
-          <div className="hero-mark flex items-center gap-5">
+          {/* ページ唯一の h1。氏名を主要見出しに据えて見出し階層の頂点にする
+              （以降のセクション見出しは SectionHead の h2）。 */}
+          <h1 className="hero-mark flex items-center gap-5">
             {/* LCP 要素。GSAP/SplitText に依存させず CSS だけで即時描画する
                 （JS チャンク待ちで LCP が遅延しないように）。reduced-motion では即表示。 */}
             <span className="hero-in">{t.hero.title}</span>
-          </div>
+          </h1>
         </div>
         <span
           data-reveal="up"
