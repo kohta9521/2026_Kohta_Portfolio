@@ -16,7 +16,9 @@ export default function Hero({ lang }: { lang: Lang }) {
       <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div>
           <div className="hero-mark flex items-center gap-5">
-            <span data-reveal="text">{t.hero.title}</span>
+            {/* LCP 要素。GSAP/SplitText に依存させず CSS だけで即時描画する
+                （JS チャンク待ちで LCP が遅延しないように）。reduced-motion では即表示。 */}
+            <span className="hero-in">{t.hero.title}</span>
           </div>
         </div>
         <span

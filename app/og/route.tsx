@@ -6,7 +6,7 @@ export const contentType = "image/png";
 
 export function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const title = (searchParams.get("title") ?? "Kohta Kouchi").slice(0, 90);
+  const title = (searchParams.get("title") ?? "Kohta Kochi").slice(0, 90);
   const subtitle = (
     searchParams.get("subtitle") ?? "COO · PdM · Software Engineer"
   ).slice(0, 80);
@@ -35,7 +35,7 @@ export function GET(req: Request) {
           textTransform: "uppercase",
         }}
       >
-        <span>Kohta Kouchi</span>
+        <span>Kohta Kochi</span>
         <span style={{ color: "#666" }}>Portfolio · 2026</span>
       </div>
 

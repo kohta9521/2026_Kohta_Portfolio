@@ -8,7 +8,7 @@
   /* font families — next/font の変数を受ける */
   --font-serif:
     var(--font-newsreader), "Shippori Mincho", "Hiragino Mincho ProN", serif;
-  --font-mono: var(--font-departure), var(--font-zen), ui-monospace, monospace;
+  --font-mono: var(--font-departure), ui-monospace, monospace;
 
   /* type scale */
   --text-display: clamp(2.5rem, 1.4rem + 4.14vw, 4.4rem);
@@ -354,19 +354,53 @@
     }
   }
 
+  /* ============ FX: ヒーロー見出し（LCP 要素・CSS のみ） ============ */
+  /* GSAP を待たずページロードと同時に走る軽い登場演出。LCP を JS チャンクに
+     依存させないためのもの。reveal-ready の初期非表示対象外（data-reveal を持たない）。 */
+  .hero-in {
+    animation: hero-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-in {
+      animation: none;
+    }
+  }
+
   /* ============ FX: reveal ガード ============ */
   /* JS が動くときだけ初期状態を隠す（<html class="reveal-ready"> を inline script が付与）。
      クローラ / JS 無効 / reduced-motion では常に全文表示 → SEO・アクセシビリティ無害。
-     GSAP が要素を gsap.set/animate して inline style で上書きするまでの「素の状態」を定義。 */
-  .reveal-ready [data-reveal] {
+     表示確定は ScrollReveal が付ける .is-revealed のみが担う。IntersectionObserver /
+     フェイルセーフ / reduced-motion のどの分岐でも必ず .is-revealed が付くため、
+     テキストが空白のまま残ることはない（遷移をまたいでも再走査される）。 */
+  [data-reveal] {
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal-ready [data-reveal]:not(.is-revealed) {
     opacity: 0;
     will-change: opacity, transform;
   }
-  .reveal-ready [data-reveal="up"] {
+  /* up / text / lines は下からせり上がる。fade は opacity のみ。 */
+  .reveal-ready [data-reveal="up"]:not(.is-revealed),
+  .reveal-ready [data-reveal="text"]:not(.is-revealed),
+  .reveal-ready [data-reveal="lines"]:not(.is-revealed) {
     transform: translateY(18px);
   }
-  /* text / lines は子要素（SplitText）側で動かすので親は opacity のみ */
   @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      transition: none;
+    }
     .reveal-ready [data-reveal] {
       opacity: 1 !important;
       transform: none !important;
