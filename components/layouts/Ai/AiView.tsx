@@ -19,11 +19,9 @@ const UPDATED = "2026-05-31";
 
 // 本文中の内部マークアップを除去してプレーンな散文にする。
 //   [[FDE]]            → FDE          （Wiki リンク記法）
-//   "… [draft — …]"    → ""           （社内向けの下書きメモ。AI 公開面には出さない）
 function clean(s: string): string {
   return s
     .replace(/\[\[([^\]]+)\]\]/g, "$1")
-    .replace(/\s*\[draft[^\]]*\]/gi, "")
     .replace(/\s{2,}/g, " ")
     .trim();
 }

@@ -35,12 +35,12 @@ export const en: Messages = {
     kicker: "Career",
     title: "Where I've been working.",
     items: [
-      {
-        period: "2026.05 — Present · Tokyo",
-        org: "Noahloy Inc.",
-        role: "Frontend Engineer / Designer",
-        desc: "At a company driving DX in the shipbuilding industry, leading the frontend replacement, design, design-system development and corporate branding.",
-      },
+      // {
+      //   period: "2026.05 — Present · Tokyo",
+      //   org: "Noahloy Inc.",
+      //   role: "Frontend Engineer / Designer",
+      //   desc: "At a company driving DX in the shipbuilding industry, leading the frontend replacement, design, design-system development and corporate branding.",
+      // },
       {
         period: "2025.02 — Present · Tokyo / Hybrid",
         org: "QueryLift Inc.",
@@ -122,12 +122,12 @@ export const en: Messages = {
           {
             name: "Rust",
             version: "stable (2021 ed.)",
-            note: "Performance-sensitive backend and tooling work. [draft — please verify the project]",
+            note: "Performance-sensitive backend and tooling work.",
           },
           {
             name: "Node.js",
             version: "18 – 22 LTS",
-            note: "API and tooling layer behind the front-end apps. [draft — please verify the project]",
+            note: "API and tooling layer behind the front-end apps.",
           },
           {
             name: "Go",
@@ -146,17 +146,17 @@ export const en: Messages = {
           },
           {
             name: "Docker",
-            note: "Containerised local and CI environments across projects. [draft — please verify]",
+            note: "Containerised local and CI environments across projects.",
           },
           {
             name: "Terraform",
             version: "1.x",
-            note: "Infrastructure-as-code for cloud provisioning. [draft — please verify]",
+            note: "Infrastructure-as-code for cloud provisioning.",
           },
           {
             name: "CI/CD",
             version: "GitHub Actions",
-            note: "Build, test and deploy pipelines. [draft — please verify]",
+            note: "Build, test and deploy pipelines.",
           },
         ],
       },
@@ -167,17 +167,17 @@ export const en: Messages = {
           {
             name: "PostgreSQL",
             version: "14 – 16",
-            note: "Primary relational store for production apps. [draft — please verify]",
+            note: "Primary relational store for production apps.",
           },
           {
             name: "MongoDB",
             version: "6.x",
-            note: "Document store for flexible-schema features. [draft — please verify]",
+            note: "Document store for flexible-schema features.",
           },
           {
             name: "Redis",
             version: "7.x",
-            note: "Caching and session layer. [draft — please verify]",
+            note: "Caching and session layer.",
           },
           {
             name: "Git",
@@ -207,15 +207,15 @@ export const en: Messages = {
           {
             name: "Google Analytics",
             version: "GA4",
-            note: "Measurement for QueryLift's GEO analytics and the Mercoin launch LP. [draft — please verify]",
+            note: "Measurement for QueryLift's GEO analytics and the Mercoin launch LP.",
           },
           {
             name: "Search Console",
-            note: "Search-visibility monitoring, central to QueryLift's GEO work. [draft — please verify]",
+            note: "Search-visibility monitoring, central to QueryLift's GEO work.",
           },
           {
             name: "Tag Manager",
-            note: "Tag and event management for analytics across launches. [draft — please verify]",
+            note: "Tag and event management for analytics across launches.",
           },
           {
             name: "DaVinci Resolve",
@@ -250,10 +250,8 @@ export const en: Messages = {
         body: [
           "Reginavi started from a simple frustration: every year the Gakushuin festival scattered its schedule, maps and booth information across flyers and a handful of group chats. I wanted one place that just told you what was happening, and where.",
           "Built with Next.js and TypeScript as a mobile-first web app, it pulled the event information into a single timeline and map so visitors could plan their day without hunting around. The constraint that shaped everything was the crowd — it had to load fast on packed campus Wi-Fi and make sense at a glance while you were walking.",
-          "[draft — please verify the scope, usage numbers and outcome before publishing.]",
         ],
         tags: ["Next.js", "TypeScript", "Mobile App"],
-        image: "/images/dummy/reginavi.png",
       },
       {
         slug: "enter",
@@ -268,7 +266,6 @@ export const en: Messages = {
           'Every feature was just "the thing I wished existed when I was a student," made real: fully customisable profile pages as an engineer\'s calling card, an AtCoder integration that pulled in ratings and turned them into a live ranking, curated internship listings aimed at current students, a board for pitching the business ideas you were sitting on, and matching to nudge members toward each other. The plan was to layer these in over time and fold the whole arc — meet your peers, build with them, grow alongside them — into a single service.',
         ],
         tags: ["Community", "Next.js", "React", "Laravel", "Go", "Discord"],
-        image: "/images/dummy/enter.png",
       },
       {
         slug: "ufes-2024-spring",
@@ -282,7 +279,6 @@ export const en: Messages = {
           'Holding the line — "an event students made because they were thinking of the next students" — across both the visuals and the experience mattered to me. The official site that carried it, I designed and built myself alongside the planning: Next.js, shipped on Vercel, with the participating groups, the concept and the registration form on one page, so the feel of the day came through before anyone even arrived.',
         ],
         tags: ["Event", "Community", "Leadership", "Next.js"],
-        image: "/images/dummy/ufes.png",
       },
     ],
   },
