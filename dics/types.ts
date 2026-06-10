@@ -34,7 +34,8 @@ export interface ProjectItem {
   /** 詳細ページ本文（段落配列） */
   body: string[];
   tags: string[];
-  image: string;
+  /** カード／詳細のメイン画像。未指定ならドット背景のみを表示する。 */
+  image?: string;
   /** 公開 URL など外部リンク（任意） */
   link?: string;
 }

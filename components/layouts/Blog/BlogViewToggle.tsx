@@ -52,7 +52,7 @@ export default function BlogViewToggle({
 
       <div className="mt-12">{statsBar}</div>
 
-      <p className="mx-auto mt-10 max-w-[58ch] text-[1rem] leading-[1.6] text-ink-2">
+      <p className="mx-auto mt-10 max-w-[70ch] text-[0.95rem] leading-[1.65] text-ink-2">
         {intro}
       </p>
 

@@ -29,15 +29,17 @@ export default function Projects({
               href={`${base}/works/${p.slug}`}
               className="card-fx group flex cursor-pointer gap-4 rounded-[--radius-card] border border-rule bg-paper-raised p-2.5"
             >
-              {/* 左：画像 */}
-              <div className="relative aspect-square w-20 shrink-0 overflow-hidden rounded-[--radius-card] border border-rule bg-paper-sunken sm:w-24">
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  fill
-                  sizes="96px"
-                  className="object-cover transition-[transform,filter] duration-500 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.08] group-hover:saturate-[1.15]"
-                />
+              {/* 左：画像（未指定ならドット背景のみ） */}
+              <div className="relative aspect-square w-20 shrink-0 overflow-hidden rounded-[--radius-card] border border-rule bg-paper-raised bg-[radial-gradient(var(--color-accent-dot)_0.5px,transparent_0.5px)] [background-size:6px_6px] sm:w-24">
+                {p.image && (
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    sizes="96px"
+                    className="object-cover transition-[transform,filter] duration-500 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.08] group-hover:saturate-[1.15]"
+                  />
+                )}
                 {/* hover で乗るアクセントのグラデーション膜 */}
                 <span
                   aria-hidden

@@ -58,8 +58,14 @@ export default function Hero({ lang }: { lang: Lang }) {
           ))}
         </div>
 
-        <div className="h-52 lg:h-auto lg:flex-1">
-          <FilePlate filename="KOHTA_KOUCHI" />
+        {/* スマホでは本文より上（タイトル直下）に画像を出す。PC は従来どおり右側。 */}
+        <div className="order-first h-52 lg:order-none lg:h-auto lg:flex-1">
+          {/* 価値提供のパイプライン図。言語に依存させず常に英語版を表示する。 */}
+          <FilePlate
+            src="/svg/hero/kohta_value_pipeline_en.svg"
+            filename="VALUE_PIPELINE"
+            imgPadding="p-4"
+          />
         </div>
       </div>
 

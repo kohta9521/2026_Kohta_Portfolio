@@ -154,10 +154,10 @@ export default function BlogPostView({ id, lang }: { id: string; lang: Lang }) {
             <p className="label !text-ink-3">
               {post.words} {blog.post.wordsLabel} · {blog.post.author}
             </p>
-            <h1 className="mx-auto mt-5 max-w-[18ch] font-serif text-[length:clamp(2.15rem,1.3rem+3.4vw,3.8rem)] font-[430] leading-[0.98] tracking-[-0.02em]">
+            <h1 className="mx-auto mt-5 max-w-[27ch] font-serif text-[length:clamp(1.9rem,1.2rem+2.6vw,3.1rem)] font-[430] leading-[1.05] tracking-[-0.02em]">
               {post.title}
             </h1>
-            <p className="mx-auto mt-5 max-w-[46ch] font-serif text-[1.35rem] italic leading-[1.4] text-ink-2">
+            <p className="mx-auto mt-6 max-w-[58ch] font-serif text-[1.2rem] italic leading-[1.5] text-ink-2">
               {post.excerpt}
             </p>
             <div className="mx-auto mt-8 h-px w-10 bg-rule-strong" />

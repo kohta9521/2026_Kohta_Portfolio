@@ -115,15 +115,17 @@ export default function WorkDetailView({
           <div className="dotrule mx-auto mt-9 w-16" />
         </header>
 
-        {/* ヒーロー画像 */}
-        <div className="relative mt-12 aspect-[16/10] overflow-hidden rounded-[--radius-card] border border-rule-strong bg-paper-sunken">
-          <Image
-            src={work.image}
-            alt={work.title}
-            fill
-            sizes="(min-width: 1024px) 72ch, 100vw"
-            className="object-cover"
-          />
+        {/* ヒーロー画像（未指定ならドット背景のみ） */}
+        <div className="relative mt-12 aspect-[16/10] overflow-hidden rounded-[--radius-card] border border-rule-strong bg-paper-raised bg-[radial-gradient(var(--color-accent-dot)_0.5px,transparent_0.5px)] [background-size:6px_6px]">
+          {work.image && (
+            <Image
+              src={work.image}
+              alt={work.title}
+              fill
+              sizes="(min-width: 1024px) 72ch, 100vw"
+              className="object-cover"
+            />
+          )}
         </div>
 
         {/* タグ */}
