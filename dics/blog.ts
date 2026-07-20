@@ -234,7 +234,7 @@ const en: BlogStrings = {
       date: "2026.03",
       words: "2.9K",
       body: [
-        "A design system for one person sounds like overkill until you realise future-you is a different, forgetful collaborator. At Noahloy I built one from tokens up — colour, type, spacing — so that decisions made once didn't have to be re-litigated every screen.",
+        "A design system for one person sounds like overkill until you realise future-you is a different, forgetful collaborator. At Noahlogy I built one from tokens up — colour, type, spacing — so that decisions made once didn't have to be re-litigated every screen.",
         "The trick when you wear every hat is to externalise judgement into constraints. If the spacing scale only has six steps, you stop agonising over 13px versus 14px. The system isn't bureaucracy; it's a way to stop spending willpower on settled questions.",
         "Done right, it also makes the handoff to a future teammate trivial — because the rules live in the code, not in my head.",
       ],
@@ -433,7 +433,7 @@ const ja: BlogStrings = {
       date: "2026.03",
       words: "2.9K",
       body: [
-        "一人のためのデザインシステムなんて大げさに聞こえるかもしれません。でも「未来の自分」は他人みたいなもので、しかもけっこう忘れっぽい協力者だと気づくと、見方が変わります。Noahloy では色・タイポ・余白といったトークンから組み上げて、一度決めたことを画面ごとに考え直さずに済むようにしました。",
+        "一人のためのデザインシステムなんて大げさに聞こえるかもしれません。でも「未来の自分」は他人みたいなもので、しかもけっこう忘れっぽい協力者だと気づくと、見方が変わります。Noahlogy では色・タイポ・余白といったトークンから組み上げて、一度決めたことを画面ごとに考え直さずに済むようにしました。",
         "全部の役割を一人で兼ねるときのコツは、判断をルール側に追い出してしまうことです。余白のスケールが 6 段階しかなければ、13px か 14px かで悩むこと自体がなくなります。デザインシステムは堅苦しいルールづくりではなく、すでに答えの出た問いに毎回エネルギーを使わないための仕組みだと思っています。",
         "うまく作っておけば、将来チームに引き継ぐときも楽になります。ルールが自分の頭の中ではなく、コードの中に置いてあるからです。",
       ],
