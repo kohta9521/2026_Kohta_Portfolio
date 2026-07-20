@@ -35,12 +35,18 @@ export const en: Messages = {
     kicker: "Career",
     title: "Where I've been working.",
     items: [
-      // {
-      //   period: "2026.05 — Present · Tokyo",
-      //   org: "Noahloy Inc.",
-      //   role: "Frontend Engineer / Designer",
-      //   desc: "At a company driving DX in the shipbuilding industry, leading the frontend replacement, design, design-system development and corporate branding.",
-      // },
+      {
+        period: "2026.06 — Present · Tokyo",
+        org: "A-Light Inc.",
+        role: "CTO (Full-stack · FDE)",
+        desc: "Appointed CTO of a Japanese talent / entertainment agency. Embedded as a Forward Deployed Engineer (FDE), I own everything from building in-house SaaS to interviewing staff on the ground — running day-to-day initiatives that streamline and automate the work so the team can spend its time on what truly matters.",
+      },
+      {
+        period: "2026.05 — Present · Tokyo",
+        org: "Noahlogy Inc.",
+        role: "Full-stack Engineer / Designer",
+        desc: "At a company driving DX in the shipbuilding industry, leading the frontend replacement, design, design-system development and corporate branding as a full-stack engineer.",
+      },
       {
         period: "2025.02 — Present · Tokyo / Hybrid",
         org: "QueryLift Inc.",
@@ -96,7 +102,7 @@ export const en: Messages = {
           {
             name: "Next.js",
             version: "13 – 15",
-            note: "Led Simple's core-service replatform from Laravel/Vue.js to Next.js — my default stack since, at QueryLift, Mercoin and Noahloy.",
+            note: "Led Simple's core-service replatform from Laravel/Vue.js to Next.js — my default stack since, at QueryLift, Mercoin and Noahlogy.",
           },
           {
             name: "React",
@@ -111,7 +117,7 @@ export const en: Messages = {
           {
             name: "Tailwind CSS",
             version: "v3 / v4",
-            note: "Built and maintained design systems with it at Simple and Noahloy — tokens through component library.",
+            note: "Built and maintained design systems with it at Simple and Noahlogy — tokens through component library.",
           },
         ],
       },
@@ -185,7 +191,7 @@ export const en: Messages = {
           },
           {
             name: "Figma",
-            note: "Design-to-implementation handoff I own end to end — from Simple to Mercoin's LP to Noahloy's design system.",
+            note: "Design-to-implementation handoff I own end to end — from Simple to Mercoin's LP to Noahlogy's design system.",
           },
         ],
       },
@@ -296,7 +302,7 @@ export const en: Messages = {
       {
         q: "Are you available for freelance work?",
         a: [
-          "Sometimes. I take on a limited number of small, interesting projects alongside my main work at QueryLift and Noahloy.",
+          "Sometimes. I take on a limited number of small, interesting projects alongside my main work at QueryLift and Noahlogy.",
           "If the scope is sharp and the problem is fun, email me and we'll see if it fits.",
         ],
       },

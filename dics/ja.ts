@@ -34,12 +34,18 @@ export const ja: Messages = {
     kicker: "経歴",
     title: "これまでの経験",
     items: [
-      // {
-      //   period: "2026.05 — 現在 ・ 東京",
-      //   org: "Noahloy 株式会社",
-      //   role: "Frontend Engineer / Designer",
-      //   desc: "造船業界の DX を手がける同社で、フロントエンドのリプレイス、デザイン、デザインシステムの構築、そして企業ブランディングまでを担当。",
-      // },
+      {
+        period: "2026.06 — 現在 ・ 東京",
+        org: "株式会社 A-Light",
+        role: "CTO（Full-stack・FDE）",
+        desc: "日本の芸能事務所の CTO として就任。FDE（Forward Deployed Engineer）として現場に深く入り込み、社内 SaaS の実装からヒアリングまでを一貫して担う。スタッフが本当に必要な業務に時間を割けるよう、業務を見直し・自動化する施策を日々進めている。",
+      },
+      {
+        period: "2026.05 — 現在 ・ 東京",
+        org: "Noahlogy 株式会社",
+        role: "Full-stack Engineer / Designer",
+        desc: "造船業界の DX を手がける同社で、フロントエンドのリプレイス、デザイン、デザインシステムの構築、そして企業ブランディングまでをフルスタックで担当。",
+      },
       {
         period: "2025.02 — 現在 ・ 東京 / ハイブリッド",
         org: "QueryLift 株式会社",
@@ -95,7 +101,7 @@ export const ja: Messages = {
           {
             name: "Next.js",
             version: "13 – 15",
-            note: "Simpleの転職情報サイトをLaravel/Vue.jsからNext.jsへ全面刷新。以降QueryLift・メルコイン・Noahloyでも主力スタック。",
+            note: "Simpleの転職情報サイトをLaravel/Vue.jsからNext.jsへ全面刷新。以降QueryLift・メルコイン・Noahlogyでも主力スタック。",
           },
           {
             name: "React",
@@ -110,7 +116,7 @@ export const ja: Messages = {
           {
             name: "Tailwind CSS",
             version: "v3 / v4",
-            note: "SimpleとNoahloyでデザインシステムを構築・運用。トークンからコンポーネントライブラリまで。",
+            note: "SimpleとNoahlogyでデザインシステムを構築・運用。トークンからコンポーネントライブラリまで。",
           },
         ],
       },
@@ -184,7 +190,7 @@ export const ja: Messages = {
           },
           {
             name: "Figma",
-            note: "デザインから実装までを一貫して担当。SimpleからメルコインのLP、Noahloyのデザインシステムまで。",
+            note: "デザインから実装までを一貫して担当。SimpleからメルコインのLP、Noahlogyのデザインシステムまで。",
           },
         ],
       },
